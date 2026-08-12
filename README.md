@@ -1,6 +1,8 @@
 # AJAN – Otonom AI Kodlama Ajanı
 
-AJAN, yerel makinenizde çalışan, Llama tabanlı bir yapay zeka kodlama ajanıdır. CLI arayüzü ile yazılım geliştirmeyi, kod analizi yapmayı ve karmaşık görevleri otomatikleştirmeyi sağlar.
+![AJAN Logo](./Assets/AJAN_LOGO.svg)
+
+AJAN, yerel makinenizde çalışan, Gemma tabanlı bir yapay zeka kodlama ajanıdır. CLI arayüzü ile yazılım geliştirmeyi, kod analizi yapmayı ve karmaşık görevleri otomatikleştirmeyi sağlar.
 
 > 📊 **Derleme Durumu ve Yönetim:** Detaylı bilgi için [AJAN_INFO.md](./Source/AJAN_INFO.md) sayfasını ziyaret edin.
 
@@ -11,6 +13,14 @@ AJAN, yerel makinenizde çalışan, Llama tabanlı bir yapay zeka kodlama ajanı
 - 🔄 **Çoklu Modlar** – Chat, Plan, Build ve Devamlılık modları
 - ⚡ **Hızlı Yanıtlar** – Ağ gecikmesi olmadan anında işlem
 - 🛠️ **Araç İntegrasyonu** – Dosya, terminal, web ve patch araçları
+
+## Teknik Bilgiler
+
+- **Model:** Gemma 4 (GGUF formatı)
+- **RAM/VRAM Kullanımı:** ~4 GB
+- **Performans:** Biraz gecikmeli fakat hızlı yanıt verir
+- **Kurulum:** Direkt AJAN kurulumu yeterlidir, ek konfigürasyon gerektirmez
+- **Bağlam Penceresi:** 128K token (ana model)
 
 ## Kurulum
 
@@ -81,13 +91,24 @@ Source/
 └── package.json
 ```
 
+## 📸 Ekran Görüntüleri
+
+### Terminal Arayüzü
+![TUI Interface](./Assets/tui-interface.png)
+
+### Komut Menüsü
+![TUI Commands](./Assets/tui-commands.png)
+
+### Chat Sohbeti
+![TUI Chat](./Assets/tui-chat.png)
+
 ## Katkı
 
 Katkılar memnuniyetle karşılanır! Lütfen değişikliklerinizi açıklayıcı commit mesajları ile gönderin.
 
 ## Lisans
 
-Apache 2.0 – Detaylar için [LICENSE](./LISANCE) dosyasına bakın.
+GNU GPL v3 – Detaylar için [LICENSE](./LISANCE) dosyasına bakın.
 
 ---
 
