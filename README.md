@@ -1,5 +1,3 @@
-# AJAN – Otonom AI Kodlama Ajanı
-
 ![AJAN Logo](./Assets/AJAN_LOGO.svg)
 
 AJAN, yerel makinenizde çalışan, Gemma tabanlı bir yapay zeka kodlama ajanıdır. CLI arayüzü ile yazılım geliştirmeyi, kod analizi yapmayı ve karmaşık görevleri otomatikleştirmeyi sağlar.
