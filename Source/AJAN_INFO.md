@@ -3,7 +3,7 @@
 # 🚀 AJAN YÖNETİM & DERLEME PANELİ
 
 ![NPM Version](https://img.shields.io/badge/npm-v1.0.0-CB3837?style=for-the-badge&logo=npm&logoColor=white)
-![Build Status](https://img.shields.io/badge/build-passing-brightgreen?style=for-the-badge&logo=github-actions&logoColor=white)
+![Build Status](https://img.shields.io/badge/build-errors-red?style=for-the-badge&logo=github-actions&logoColor=white)
 ![License](https://img.shields.io/badge/license-GNU_v3-blue?style=for-the-badge)
 
 **Takım Çizgisi Ajan Modülleri Derleme ve Test Takip Sistemi**
@@ -46,5 +46,20 @@
 | Modül | NPM Paketi | Versiyon | Durum | Tarih |
 | :--- | :--- | :---: | :---: | :---: |
 | ![Tests](https://img.shields.io/badge/AJAN_TESTS-C21325?style=for-the-badge&logo=jest&logoColor=white) | `@takimcizgisi/ajan` | `UNK` | ![Devam](https://img.shields.io/badge/Durum-Devam_Ediyor-yellow?style=for-the-badge) | `12.08.2026` |
+
+---
+
+## ⚠️ Bilinen Sorunlar
+
+### 🔴 TUI Arızası (Terminal User Interface)
+
+Güncel versiyonlarda **Terminal UI (TUI)** bileşeninde sorunlar tespit edilmiştir:
+
+- **Etkilenen Dosya:** `src/cli/tui.ts`
+- **Durum:** ❌ Arızalı - Kullanılamaz durumda
+- **Tarih:** `12.08.2026`
+- **Açıklama:** TUI bileşeni tam işlevsel değildir. Bu bileşen içeren komutlar beklendiği gibi davranmayabilir.
+
+**Çözüm Durumu:** Düzeltme yapılmaktadır. Gelecek sürümlerde giderilecektir.
 
 ---
