@@ -1,0 +1,55 @@
+{
+  "name": "@takimcizgisi/ajan",
+  "version": "0.1.4",
+  "description": "AJAN AI - Otonom yerel CLI AI kodlama ajanı (Gemma 4 E2B + node-llama-cpp)",
+  "type": "module",
+  "license": "Apache-2.0",
+  "author": "TakimCizgisi Yazilim Gelistirme Grubu",
+  "keywords": [
+    "ai",
+    "llm",
+    "local",
+    "agent",
+    "cli",
+    "coding-agent",
+    "llama-cpp",
+    "gemma",
+    "cuda"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/takimcizgisi/ajan.git"
+  },
+  "bin": {
+    "ajan": "./dist/cli/index.js"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "config",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\"",
+    "dev": "tsx src/cli/index.ts",
+    "dev:chat": "tsx src/cli/index.ts chat",
+    "doctor": "tsx src/cli/index.ts doctor",
+    "start": "node dist/cli/index.js",
+    "prepack": "npm run clean && npm run build"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "diff": "^9.0.0",
+    "node-llama-cpp": "^3.19.1"
+  },
+  "devDependencies": {
+    "@types/diff": "^7.0.2",
+    "@types/node": "^24.13.3",
+    "tsx": "^4.23.12",
+    "typescript": "^7.0.2"
+  }
+}

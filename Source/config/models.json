@@ -1,0 +1,54 @@
+{
+  "$schema": "",
+  "version": 1,
+  "source": "",
+  "models": [
+    {
+      "id": "gemma-4-e2b-q4-k-m",
+      "name": "Gemma 4 E2B (Q4_K_M)",
+      "description": "Ana model: 4-bit sıkıştırılmış, ~3-4GB RAM, 128K bağlam",
+      "uri": "hf:unsloth/gemma-4-E2B-it-GGUF/gemma-4-E2B-it-Q4_K_M.gguf",
+      "fileName": "gemma-4-E2B-it-Q4_K_M.gguf",
+      "contextSize": 131072,
+      "gpuLayers": "auto",
+      "chatWrapper": "gemma4",
+      "reasoning": true,
+      "multimodal": true
+    },
+    {
+      "id": "gemma-4-e2b-q8",
+      "name": "Gemma 4 E2B (Q8_0)",
+      "description": "Daha yüksek kalite, daha fazla RAM (~5-8GB)",
+      "uri": "hf:unsloth/gemma-4-E2B-it-GGUF/gemma-4-E2B-it-Q8_0.gguf",
+      "fileName": "gemma-4-E2B-it-Q8_0.gguf",
+      "contextSize": 131072,
+      "gpuLayers": "auto",
+      "chatWrapper": "gemma4",
+      "reasoning": true,
+      "multimodal": true
+    },
+    {
+      "id": "gemma-3-4b-it-q4-k-m",
+      "name": "Gemma 3 4B Instruct (Q4_K_M)",
+      "description": "Alternatif: çoklu mod destekli, orta boy",
+      "uri": "hf:unsloth/gemma-3-4b-it-GGUF:Q4_K_M",
+      "fileName": "gemma-3-4b-it-Q4_K_M.gguf",
+      "contextSize": 32768,
+      "gpuLayers": "auto",
+      "chatWrapper": "gemma",
+      "multimodal": true
+    },
+    {
+      "id": "qwen-3-4b-instruct-q4-k-m",
+      "name": "Qwen3 4B Instruct (Q4_K_M)",
+      "description": "Alternatif: güçlü tool calling desteği",
+      "uri": "hf:unsloth/Qwen3-4B-GGUF/Qwen3-4B-Q4_K_M.gguf",
+      "fileName": "Qwen3-4B-Q4_K_M.gguf",
+      "contextSize": 32768,
+      "gpuLayers": "auto",
+      "chatWrapper": "qwen3",
+      "reasoning": false,
+      "multimodal": false
+    }
+  ]
+}
