@@ -1,6 +1,6 @@
 # These are supported funding model platforms
 
-github: [ibrahimanadol]
+github: [ibrahimanadol, anomalyco]
 patreon: # Replace with a single Patreon username
 open_collective: # Replace with a single Open Collective username
 ko_fi: # Replace with a single Ko-fi username
@@ -13,5 +13,3 @@ polar: # Replace with a single Polar username
 buy_me_a_coffee: # Replace with a single Buy Me a Coffee username
 thanks_dev: # Replace with a single thanks.dev username
 custom:
-  - 'https://opencode.ai/'
-  - 'https://github.com/anomalyco/opencode'
