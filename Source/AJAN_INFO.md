@@ -14,7 +14,7 @@
 
 ## 📌 Genel Durum Özeti
 
-| 🕒 Son Güncelleme | � Sistem Durumu | 📦 Toplam Modül | 🛠️ Otomasyon |
+| 🕒 Son Güncelleme | 🟡 Sistem Durumu | 📦 Toplam Modül | 🛠️ Otomasyon |
 | :---: | :---: | :---: | :---: |
 | `13.08.2026` | `İYİLEŞTİRMELER ÜZERİNDE ÇALIŞILIYOR` | `1` | `NOT READY` |
 
@@ -61,5 +61,44 @@ Güncel versiyonlarda **Terminal UI (TUI)** bileşeninde sorunlar tespit edilmi�
 - **Açıklama:** TUI bileşeni tam işlevsel değildir. Bu bileşen içeren komutlar beklendiği gibi davranmayabilir.
 
 **Çözüm Durumu:** Düzeltme yapılmaktadır. Gelecek sürümlerde giderilecektir.
+
+---
+
+### 🔴 Tool Bugları
+
+Bazı araç (tool) çağrılarında kararlılık sorunları gözlemlenmiştir:
+
+- **Etkilenen Araçlar:** `read_file`, `run_command`
+- **Durum:** ❌ Arızalı - Beklenmeyen davranışlar mevcut
+- **Tarih:** `12.08.2026`
+- **Açıklama:** Özellikle `read_file` ve `run_command` araçları bazı senaryolarda hatalı sonuçlar döndürebilmekte veya takılabilmektedir.
+
+**Çözüm Durumu:** İnceleniyor. Öncelikli düzeltme listesindedir.
+
+---
+
+### 🔴 Mantıksız Davranış (System Prompt Sadakati)
+
+Ajan, bazı durumlarda bağlama uygun olmayan çıktılar üretebilmektedir:
+
+- **Etkilenen Bileşen:** Davranış Motoru / Yönerge İşleme
+- **Durum:** ⚠️ Tespit Edildi - Optimizasyon gerekli
+- **Tarih:** `12.08.2026`
+- **Açıklama:** Ajanın **System Prompt**'a aşırı sadık kalması nedeniyle mantıksız veya bağlam dışı yanıtlar üretebildiği gözlemlenmiştir. Bu kısıtlayıcı davranışın yakın zamanda kaldırılması planlanmaktadır.
+
+**Çözüm Durumu:** İlgili davranışın kaldırılması/yeniden düzenlenmesi için planlama yapıldı. Yakın gelecekte güncellenecektir.
+
+---
+
+### 🔴 AI Yükleme Çubuğu Bug'ı
+
+Kullanıcı arayüzündeki ilerleme göstergesinde görsel bir hata mevcuttur:
+
+- **Etkilenen Bileşen:** CLI İlerleme Göstergesi (Progress Bar)
+- **Durum:** ❌ Arızalı - Yanıltıcı gösterge
+- **Tarih:** `12.08.2026`
+- **Açıklama:** Yükleme çubuğu `0`'dan `1`'e ulaştığında modelin çalışmasının tamamlandığı varsayılıyor. Ancak bu, modelin işlemi tamamladığı anlamına gelmemektedir. Gösterge, gerçek süreçten bağımsız olarak dolmaktadır ve bu durum kullanıcıyı yanıltmaktadır.
+
+**Çözüm Durumu:** Gösterge mantığının gerçek süreçle senkronize edilmesi için araştırma sürüyor.
 
 ---
