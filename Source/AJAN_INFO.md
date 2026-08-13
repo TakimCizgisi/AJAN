@@ -3,7 +3,7 @@
 # 🚀 AJAN YÖNETİM & DERLEME PANELİ
 
 ![NPM Version](https://img.shields.io/badge/npm-v1.0.0-CB3837?style=for-the-badge&logo=npm&logoColor=white)
-![Build Status](https://img.shields.io/badge/build-errors-red?style=for-the-badge&logo=github-actions&logoColor=white)
+![Build Status](https://img.shields.io/badge/build-improvements-yellow?style=for-the-badge&logo=github-actions&logoColor=white)
 ![License](https://img.shields.io/badge/license-GNU_v3-blue?style=for-the-badge)
 
 **Takım Çizgisi Ajan Modülleri Derleme ve Test Takip Sistemi**
@@ -14,9 +14,9 @@
 
 ## 📌 Genel Durum Özeti
 
-| 🕒 Son Güncelleme | 🟢 Sistem Durumu | 📦 Toplam Modül | 🛠️ Otomasyon |
+| 🕒 Son Güncelleme | � Sistem Durumu | 📦 Toplam Modül | 🛠️ Otomasyon |
 | :---: | :---: | :---: | :---: |
-| `12.08.2026` | `Stabil Olmatan Sürüm` | `1` | `NOT READY` |
+| `13.08.2026` | `İYİLEŞTİRMELER ÜZERİNDE ÇALIŞILIYOR` | `1` | `NOT READY` |
 
 ---
 
@@ -27,7 +27,7 @@
 
 | Modül | NPM Paketi | Versiyon | Durum | Tarih |
 | :--- | :--- | :---: | :---: | :---: |
-| ![Build](https://img.shields.io/badge/AJAN_BUILDS-007ACC?style=for-the-badge&logo=visualstudiocode&logoColor=white) | `@takimcizgisi/ajan` | `UNK` | ![Devam](https://img.shields.io/badge/Durum-Devam_Ediyor-yellow?style=for-the-badge) | `12.08.2026` |
+| ![Build](https://img.shields.io/badge/AJAN_BUILDS-007ACC?style=for-the-badge&logo=visualstudiocode&logoColor=white) | `@takimcizgisi/ajan` | `UNK` | ![Devam](https://img.shields.io/badge/Durum-Devam_Ediyor-yellow?style=for-the-badge) | `13.08.2026` |
 
 ---
 
@@ -36,7 +36,7 @@
 
 | Modül | NPM Paketi | Versiyon | Durum | Tarih |
 | :--- | :--- | :---: | :---: | :---: |
-| ![Source](https://img.shields.io/badge/AJAN_SOURCE-181717?style=for-the-badge&logo=github&logoColor=white) | `@takimcizgisi/ajan` | `UNK` | ![Devam](https://img.shields.io/badge/Durum-Devam_Ediyor-yellow?style=for-the-badge) | `12.08.2026` |
+| ![Source](https://img.shields.io/badge/AJAN_SOURCE-181717?style=for-the-badge&logo=github&logoColor=white) | `@takimcizgisi/ajan` | `UNK` | ![Devam](https://img.shields.io/badge/Durum-Devam_Ediyor-yellow?style=for-the-badge) | `13.08.2026` |
 
 ---
 
@@ -45,7 +45,7 @@
 
 | Modül | NPM Paketi | Versiyon | Durum | Tarih |
 | :--- | :--- | :---: | :---: | :---: |
-| ![Tests](https://img.shields.io/badge/AJAN_TESTS-C21325?style=for-the-badge&logo=jest&logoColor=white) | `@takimcizgisi/ajan` | `UNK` | ![Devam](https://img.shields.io/badge/Durum-Devam_Ediyor-yellow?style=for-the-badge) | `12.08.2026` |
+| ![Tests](https://img.shields.io/badge/AJAN_TESTS-C21325?style=for-the-badge&logo=jest&logoColor=white) | `@takimcizgisi/ajan` | `UNK` | ![Devam](https://img.shields.io/badge/Durum-Devam_Ediyor-yellow?style=for-the-badge) | `13.08.2026` |
 
 ---
 
@@ -57,7 +57,7 @@ Güncel versiyonlarda **Terminal UI (TUI)** bileşeninde sorunlar tespit edilmi�
 
 - **Etkilenen Dosya:** `src/cli/tui.ts`
 - **Durum:** ❌ Arızalı - Kullanılamaz durumda
-- **Tarih:** `12.08.2026`
+- **Tarih:** `13.08.2026`
 - **Açıklama:** TUI bileşeni tam işlevsel değildir. Bu bileşen içeren komutlar beklendiği gibi davranmayabilir.
 
 **Çözüm Durumu:** Düzeltme yapılmaktadır. Gelecek sürümlerde giderilecektir.
