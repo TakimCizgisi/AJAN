@@ -1,114 +1,186 @@
-![AJAN Logo](./Assets/AJAN_LOGO.svg)
+# ![AJAN Logo](./Assets/AJAN_LOGO.svg)
 
-AJAN, yerel makinenizde çalışan, Gemma tabanlı bir yapay zeka kodlama ajanıdır. CLI arayüzü ile yazılım geliştirmeyi, kod analizi yapmayı ve karmaşık görevleri otomatikleştirmeyi sağlar.
+**AJAN**, yerel makinenizde çalışan, **Gemma tabanlı** açık kaynak bir yapay zeka kodlama ajanıdır. CLI (Terminal) arayüzü ile yazılım geliştirmeyi, kod analizi yapmayı, hata ayıklamayı ve karmaşık görevleri otomatikleştirmeyi sağlar.
 
-> 📊 **Derleme Durumu ve Yönetim:** Detaylı bilgi için [AJAN_INFO.md](./Source/AJAN_INFO.md) sayfasını ziyaret edin.
-
-## Özellikler
-
-- 🤖 **Yerel AI Motoru** – Node-llama-cpp ile tamamen yerel çalışır
-- 💻 **CLI Arayüzü** – Kullanıcı dostu terminal uygulaması
-- 🔄 **Çoklu Modlar** – Chat, Plan, Build ve Devamlılık modları
-- ⚡ **Hızlı Yanıtlar** – Ağ gecikmesi olmadan anında işlem
-- 🛠️ **Araç İntegrasyonu** – Dosya, terminal, web ve patch araçları
-
-## Teknik Bilgiler
-
-- **Model:** Gemma 4 (GGUF formatı)
-- **RAM/VRAM Kullanımı:** ~4 GB
-- **Performans:** Biraz gecikmeli fakat hızlı yanıt verir
-- **Kurulum:** Direkt AJAN kurulumu yeterlidir, ek konfigürasyon gerektirmez
-- **Bağlam Penceresi:** 128K token (ana model)
-
-## Kurulum
-
-### Gereksinimler
-- Node.js 18.0.0 veya daha yeni sürüm
-- npm veya yarn
-
-### Adımlar
-
-```bash
-# Repository'i klonla
-git clone https://github.com/takimcizgisi/ajan.git
-cd AJAN/Source
-
-# Bağımlılıkları yükle
-npm install
-
-# Projeyi derle
-npm run build
-
-# CLI'yi çalıştır
-npm start
-```
-
-## Kullanım
-
-### Geliştirme Modu
-
-```bash
-# Chat modunda başla
-npm run dev:chat
-
-# Doctor modunu çalıştır
-npm run doctor
-
-# Doğrudan başlat
-npm run dev
-```
-
-### Komutlar
-
-- `/mode` – Mod değiştir (chat, plan, build, devamlılık)
-- `/clear` – Konuşma geçmişini temizle
-- `/help` – Komutları listele
-- `/exit` – Programdan çık
-
-### Kısayollar
-
-- `TAB` – Mod döngüsü
-- `Ctrl+C` – Çık
-- `Page Up/Down` – Kaydır
-- `↑/↓` – Geçmiş arasında gezin
-
-## Yapı
-
-```
-Source/
-├── src/
-│   ├── index.ts              # Ana giriş noktası
-│   ├── cli/                  # CLI uygulaması
-│   │   ├── index.ts
-│   │   └── tui.ts            # Terminal UI
-│   ├── config/               # Konfigürasyon
-│   ├── core/                 # Temel ajanı mantığı
-│   ├── engine/               # AI motoru
-│   └── tools/                # Araçlar ve entegrasyonlar
-├── config/                   # Model konfigürasyonları
-└── package.json
-```
-
-## 📸 Ekran Görüntüleri
-
-### Terminal Arayüzü
-![TUI Interface](./Assets/tui-interface.png)
-
-### Komut Menüsü
-![TUI Commands](./Assets/tui-commands.png)
-
-### Chat Sohbeti
-![TUI Chat](./Assets/tui-chat.png)
-
-## Katkı
-
-Katkılar memnuniyetle karşılanır! Lütfen değişikliklerinizi açıklayıcı commit mesajları ile gönderin.
-
-## Lisans
-
-GNU GPL v3 – Detaylar için [LICENSE](./LISANCE) dosyasına bakın.
+> 📊 **Derleme Durumu ve Yönetim:** Detaylı bilgi için **[AJAN_INFO.md](./Source/AJAN_INFO.md)** sayfasını ziyaret edin.
 
 ---
 
-**Geliştirici:** İbrahim Anadol ve TakımÇizgisi Yazılım Geliştirme Grubu  
-**Son Güncelleme:** 2026
+# ✨ Özellikler
+
+- 🤖 **Yerel AI Motoru** – Node-llama-cpp ile tamamen çevrimdışı çalışır.
+- 💻 **CLI Arayüzü** – Modern ve kullanıcı dostu terminal deneyimi.
+- 🔄 **Çoklu Modlar** – Chat, Plan, Build ve Devamlılık modları.
+- ⚡ **Hızlı Yanıtlar** – İnternet gecikmesi olmadan yerel işlem.
+- 🛠️ **Araç Entegrasyonu** – Dosya, terminal, web ve patch araçları.
+- 📦 **Kolay Kurulum** – Kurulumdan sonra ek yapılandırma gerektirmez.
+- 🔒 **Gizlilik Odaklı** – Verileriniz cihazınızdan çıkmaz.
+
+---
+
+# 🖥️ Teknik Bilgiler
+
+| Özellik | Bilgi |
+|---------|-------|
+| Model | Gemma 4 (GGUF) |
+| Çalışma Şekli | Tamamen Yerel |
+| AI Motoru | node-llama-cpp |
+| RAM / VRAM | Yaklaşık 4 GB |
+| Bağlam Penceresi | 128K Token |
+| Platform | Windows, Linux, macOS |
+| Dil | TypeScript |
+
+---
+
+# 📥 Kurulum
+
+## Gereksinimler
+
+- Node.js 18 veya daha yeni
+- npm veya yarn
+
+## Kurulum
+
+```bash
+git clone https://github.com/takimcizgisi/ajan.git
+
+cd AJAN/Source
+
+npm install
+
+npm run build
+
+npm start
+```
+
+---
+
+# 🚀 Kullanım
+
+## Geliştirme
+
+```bash
+npm run dev
+```
+
+## Chat Modu
+
+```bash
+npm run dev:chat
+```
+
+## Doctor
+
+```bash
+npm run doctor
+```
+
+---
+
+# 📋 Komutlar
+
+| Komut | Açıklama |
+|--------|----------|
+| `/help` | Yardımı göster |
+| `/mode` | Mod değiştir |
+| `/clear` | Sohbet geçmişini temizle |
+| `/exit` | Programdan çık |
+
+---
+
+# ⌨️ Kısayollar
+
+| Tuş | İşlev |
+|------|-------|
+| TAB | Mod değiştir |
+| ↑ / ↓ | Geçmiş mesajlar |
+| Page Up / Down | Kaydır |
+| Ctrl + C | Çıkış |
+
+---
+
+# 📂 Proje Yapısı
+
+```text
+Source/
+├── src/
+│   ├── index.ts
+│   ├── cli/
+│   │   ├── index.ts
+│   │   └── tui.ts
+│   ├── config/
+│   ├── core/
+│   ├── engine/
+│   └── tools/
+├── config/
+└── package.json
+```
+
+---
+
+# 📸 Ekran Görüntüleri
+
+## Terminal
+
+![TUI Interface](./Assets/tui-interface.png)
+
+## Komut Menüsü
+
+![TUI Commands](./Assets/tui-commands.png)
+
+## Chat
+
+![TUI Chat](./Assets/tui-chat.png)
+
+---
+
+# 🤝 Katkıda Bulunma
+
+Katkılar her zaman memnuniyetle karşılanır.
+
+1. Repository'yi Fork edin.
+2. Yeni bir Branch oluşturun.
+3. Değişikliklerinizi yapın.
+4. Açıklayıcı Commit mesajları kullanın.
+5. Pull Request gönderin.
+
+---
+
+# ⚖️ Lisans
+
+Bu proje **GNU General Public License v3.0 (GPL-3.0)** lisansı ile yayımlanmaktadır.
+
+Lisans metni için **[LICENSE](./LICENSE)** dosyasına bakabilirsiniz.
+
+---
+
+# ⚠️ Sahiplik ve Telif Hakkı
+
+Bu projenin orijinal geliştiricisi **İbrahim Anadol** olup, **TakımÇizgisi Yazılım Geliştirme Grubu** tarafından geliştirilmektedir.
+
+GPL lisansı kapsamında bu projeyi;
+
+- ✅ Kullanabilirsiniz.
+- ✅ İnceleyebilirsiniz.
+- ✅ Değiştirebilirsiniz.
+- ✅ Dağıtabilirsiniz.
+
+Ancak;
+
+- ❌ Projenin orijinal sahibi olduğunuzu iddia edemezsiniz.
+- ❌ Geliştirici bilgilerini kaldırarak kendi projenizmiş gibi yayımlayamazsınız.
+- ❌ "AJAN" adını veya marka kimliğini resmi proje gibi kullanamazsınız.
+
+Bu projeyi veya herhangi bir bölümünü hukuka aykırı şekilde sahiplenmeniz, telif hakkını ihlal etmeniz veya yanıltıcı ticari kullanım gerçekleştirmeniz durumunda, yürürlükteki fikri mülkiyet ve telif hakkı mevzuatı kapsamında gerekli hukuki işlemler başlatılabilir.
+
+> **Not:** GPL lisansı yazılım özgürlüğü sağlar; telif hakkı sahipliğini devretmez.
+
+---
+
+# 👨‍💻 Geliştirici
+
+**İbrahim Anadol**
+
+TakımÇizgisi Yazılım Geliştirme Grubu
+
+© 2026 İbrahim Anadol. Tüm hakları saklıdır.

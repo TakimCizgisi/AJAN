@@ -1,104 +1,89 @@
 <div align="center">
 
-# 🚀 AJAN YÖNETİM & DERLEME PANELİ
+# 🚧 AJAN PROJESİ BAKIM VE YENİDEN YAPILANMA SÜRECİNDE
 
-![NPM Version](https://img.shields.io/badge/npm-v1.0.0-CB3837?style=for-the-badge&logo=npm&logoColor=white)
-![Build Status](https://img.shields.io/badge/build-improvements-yellow?style=for-the-badge&logo=github-actions&logoColor=white)
-![License](https://img.shields.io/badge/license-GNU_v3-blue?style=for-the-badge)
+![Project](https://img.shields.io/badge/PROJECT-REBUILDING-orange?style=for-the-badge)
+![Status](https://img.shields.io/badge/STATUS-IN_PROGRESS-blue?style=for-the-badge)
+![Maintenance](https://img.shields.io/badge/MAINTENANCE-SCHEDULED-yellow?style=for-the-badge)
 
-**Takım Çizgisi Ajan Modülleri Derleme ve Test Takip Sistemi**
+# ⚠️ Geliştirme ve Bakım Duyurusu
+
+**AJAN projeksiyonunda 26.08.2026 (23:59) - 31.08.2026 tarihleri arasında performans güncellemeleri ve kod düzeltmeleri gerçekleştirilecektir.**
+
+Mevcut sürüm üzerindeki iyileştirmelerin yanı sıra, yeni nesil AJAN tamamen CLI odaklı yapısıyla yeniden yapılandırılmaktadır.
 
 ---
 
 </div>
 
-## 📌 Genel Durum Özeti
+# 📢 Duyuru
 
-| 🕒 Son Güncelleme | 🟡 Sistem Durumu | 📦 Toplam Modül | 🛠️ Otomasyon |
-| :---: | :---: | :---: | :---: |
-| `13.08.2026` | `İYİLEŞTİRMELER ÜZERİNDE ÇALIŞILIYOR` | `1` | `NOT READY` |
+Planlanan **26.08.2026 (23:59) - 31.08.2026** tarih aralığında, sistem üzerinde kritik performans güncellemeleri ve kod düzeltmeleri uygulanacaktır. 
 
----
-
-## 🛠️ Modül Detay Tablosu
-
-### 📦 1. Derleme Süreçleri (`AJAN BUILDS`)
-> NPM paketi oluşturma ve derleme adımlarını içerir.
-
-| Modül | NPM Paketi | Versiyon | Durum | Tarih |
-| :--- | :--- | :---: | :---: | :---: |
-| ![Build](https://img.shields.io/badge/AJAN_BUILDS-007ACC?style=for-the-badge&logo=visualstudiocode&logoColor=white) | `@takimcizgisi/ajan` | `UNK` | ![Devam](https://img.shields.io/badge/Durum-Devam_Ediyor-yellow?style=for-the-badge) | `13.08.2026` |
+Bu süreçte daha temiz bir kod tabanı, daha yüksek modülerlik ve daha sürdürülebilir bir CLI yapısı oluşturmak hedeflenmektedir. Yeni mimari geliştirilirken mevcut sistemin güçlü yönleri korunacak, performans aksaklığı yaratan bölümler ise sıfırdan tasarlanacaktır.
 
 ---
 
-### 📂 2. Kaynak Kod Takibi (`AJAN SOURCE`)
-> Ana kod deposu, bağımlılıklar ve sürüm kontrolü.
+# 📌 Proje Durumu
 
-| Modül | NPM Paketi | Versiyon | Durum | Tarih |
-| :--- | :--- | :---: | :---: | :---: |
-| ![Source](https://img.shields.io/badge/AJAN_SOURCE-181717?style=for-the-badge&logo=github&logoColor=white) | `@takimcizgisi/ajan` | `UNK` | ![Devam](https://img.shields.io/badge/Durum-Devam_Ediyor-yellow?style=for-the-badge) | `13.08.2026` |
-
----
-
-### 🧪 3. Test ve Doğrulama (`AJAN TESTS`)
-> Birim testleri, entegrasyon testleri ve kapsam raporları.
-
-| Modül | NPM Paketi | Versiyon | Durum | Tarih |
-| :--- | :--- | :---: | :---: | :---: |
-| ![Tests](https://img.shields.io/badge/AJAN_TESTS-C21325?style=for-the-badge&logo=jest&logoColor=white) | `@takimcizgisi/ajan` | `UNK` | ![Devam](https://img.shields.io/badge/Durum-Devam_Ediyor-yellow?style=for-the-badge) | `13.08.2026` |
+| Bilgi | Durum |
+|------|------|
+| 📅 Bakım Tarihleri | `26.08.2026 (23:59) - 31.08.2026` |
+| ⚡ Çalışma Kapsamı | Performans Güncellemeleri & Kod Düzeltmeleri |
+| 🔨 AJAN V2 | Aktif Geliştiriliyor |
+| 📦 Altyapı | Node.js Tabanlı CLI |
+| 🎯 Hedef | Çoklu Platform Desteği (Linux, macOS, Windows) |
 
 ---
 
-## ⚠️ Bilinen Sorunlar
+# 🎯 AJAN V2 Hedefleri
 
-### 🔴 TUI Arızası (Terminal User Interface)
+Çalışmalar tamamlandığında AJAN, tüm platformlarda sorunsuz çalışan güçlü bir **CLI (Terminal) Ajanı** olarak hizmet vermeye devam edecektir.
 
-Güncel versiyonlarda **Terminal UI (TUI)** bileşeninde sorunlar tespit edilmiştir:
+### Hedefler
 
-- **Etkilenen Dosya:** `src/cli/tui.ts`
-- **Durum:** ❌ Arızalı - Kullanılamaz durumda
-- **Tarih:** `13.08.2026`
-- **Açıklama:** TUI bileşeni tam işlevsel değildir. Bu bileşen içeren komutlar beklendiği gibi davranmayabilir.
-
-**Çözüm Durumu:** Düzeltme yapılmaktadır. Gelecek sürümlerde giderilecektir.
-
----
-
-### 🔴 Tool Bugları
-
-Bazı araç (tool) çağrılarında kararlılık sorunları gözlemlenmiştir:
-
-- **Etkilenen Araçlar:** `read_file`, `run_command`
-- **Durum:** ❌ Arızalı - Beklenmeyen davranışlar mevcut
-- **Tarih:** `12.08.2026`
-- **Açıklama:** Özellikle `read_file` ve `run_command` araçları bazı senaryolarda hatalı sonuçlar döndürebilmekte veya takılabilmektedir.
-
-**Çözüm Durumu:** İnceleniyor. Öncelikli düzeltme listesindedir.
+- **Node.js Tabanlı Altyapı:** Güçlü, kararlı ve performanslı ekosistem.
+- **Kolay Kurulum:** `npm` paketi veya hızlı terminal betikleri ile anında kurulum.
+- **Çoklu Platform Desteği:** Linux, Windows ve macOS terminal ortamlarında tam uyum.
+- **Gelişmiş CLI & TUI:** Hızlı yanıt süresi ve modern terminal arayüzü.
+- **Modüler Araç (Tool) Sistemi:** Kolayca genişletilebilir ve özelleştirilebilir yapı.
 
 ---
 
-### 🔴 Mantıksız Davranış (System Prompt Sadakati)
+# 🏗️ Yeniden Yapılanma Süreci
 
-Ajan, bazı durumlarda bağlama uygun olmayan çıktılar üretebilmektedir:
+Bakım ve güncelleme takvimi boyunca gerçekleştirilecek ana başlıklar:
 
-- **Etkilenen Bileşen:** Davranış Motoru / Yönerge İşleme
-- **Durum:** ⚠️ Tespit Edildi - Optimizasyon gerekli
-- **Tarih:** `12.08.2026`
-- **Açıklama:** Ajanın **System Prompt**'a aşırı sadık kalması nedeniyle mantıksız veya bağlam dışı yanıtlar üretebildiği gözlemlenmiştir. Bu kısıtlayıcı davranışın yakın zamanda kaldırılması planlanmaktadır.
-
-**Çözüm Durumu:** İlgili davranışın kaldırılması/yeniden düzenlenmesi için planlama yapıldı. Yakın gelecekte güncellenecektir.
+- Performans odaklı bellek ve işlemci optimizasyonları
+- Kod tabanındaki karmaşıklığın giderilmesi ve refactoring
+- CLI / TUI komut istemi ve sohbet geçmişi düzeltmeleri
+- Terminal ve dosya düzenleme araçlarında kararlılık güncellemeleri
 
 ---
 
-### 🔴 AI Yükleme Çubuğu Bug'ı
+# 🚀 Güncelleme Sonrası Planlanan Yenilikler
 
-Kullanıcı arayüzündeki ilerleme göstergesinde görsel bir hata mevcuttur:
-
-- **Etkilenen Bileşen:** CLI İlerleme Göstergesi (Progress Bar)
-- **Durum:** ❌ Arızalı - Yanıltıcı gösterge
-- **Tarih:** `12.08.2026`
-- **Açıklama:** Yükleme çubuğu `0`'dan `1`'e ulaştığında modelin çalışmasının tamamlandığı varsayılıyor. Ancak bu, modelin işlemi tamamladığı anlamına gelmemektedir. Gösterge, gerçek süreçten bağımsız olarak dolmaktadır ve bu durum kullanıcıyı yanıltmaktadır.
-
-**Çözüm Durumu:** Gösterge mantığının gerçek süreçle senkronize edilmesi için araştırma sürüyor.
+- Daha hızlı başlangıç ve düşük kaynak kullanımı
+- Yenilenmiş ve modüler CLI / TUI arayüzü
+- Güçlendirilmiş AI motoru ve araç entegrasyonu
+- Geliştirilmiş hata yönetimi ve yapılandırma desteği
 
 ---
+
+# ❤️ Teşekkürler
+
+AJAN projeksiyonundaki bu güncelleme sürecinde gösterdiğiniz sabır ve katkılar için teşekkür ederiz.
+
+---
+
+<div align="center">
+
+# 🚀 AJAN V2 CLI
+
+**Güçlü • Hızlı • Modüler**
+
+🟢 **Node.js Tabanlı Açık Kaynak CLI Ajanı**
+
+Daha hızlı • Daha kararlı • Daha modüler
+
+</div>
