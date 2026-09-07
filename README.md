@@ -31,8 +31,7 @@ _Gemma 4 E2B + Node-llama-cpp ile tamamen çevrimdışı çalışır — veriler
 
 ## 🛠️ Nasıl Yapıldı?
 
-> Bu proje, **🧢 Vibecoding** yöntemiyle [<img src="https://github.com/anomalyco/opencode/raw/dev/packages/console/app/src/asset/logo-ornate-dark.svg" alt="opencode" width="60em" style="vertica[...]
-
+> Bu proje, **🧢 Vibecoding** yöntemiyle [<img src="https://github.com/anomalyco/opencode/raw/dev/packages/console/app/src/asset/logo-ornate-dark.svg" alt="opencode" width="60em" style="vertical-align: middle;" />] ile yapılmıştır.
 ---
 
 ## ✨ Özellikler
