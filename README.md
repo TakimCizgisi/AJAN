@@ -18,8 +18,8 @@ _Gemma 4 E2B + Node-llama-cpp ile tamamen çevrimdışı çalışır — veriler
   <table>
     <tr>
       <td align="center" style="background-color:#e0f2f1; border:2px solid #00897b; border-radius:8px; padding:12px 18px;">
-        <b style="color:#004d40; font-size:1.1em;">✨ AJAN V0.3.0 (V3)</b><br>
-        <span style="color:#00695c;">Yeni nesil özellikler ve iyileştirmeler ile çalışmalar devam ediyor.</span>
+        <b style="color:#004d40; font-size:1.1em;">✨ AJAN V3 (v0.3.0)</b><br>
+        <span style="color:#b71c1c;"><b>⚠️ DENEYSEL:</b></span> <span style="color:#00695c;">Yeni nesil özellikler ve iyileştirmelerle geliştirilmeye devam ediyor; sürüm değişebilir ve hata içerebilir.</span>
       </td>
     </tr>
   </table>
