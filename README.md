@@ -6,7 +6,7 @@
 
 **[AJAN AI](https://github.com/takimcizgisi/ajan)** — Tamamen yerel, açık kaynak yapay zeka kodlama ajanı.
 
-![Version](https://img.shields.io/badge/sürüm-v0.2.5-ff751f)
+![Version](https://img.shields.io/badge/sürüm-v0.3.0-ff751f)
 ![License](https://img.shields.io/badge/lisans-GPL--3.0-1a1a1a)
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)
 ![Node](https://img.shields.io/badge/Node.js-18%2B-339933?logo=node.js&logoColor=white)
@@ -17,9 +17,9 @@ _Gemma 4 E2B + Node-llama-cpp ile tamamen çevrimdışı çalışır — veriler
 <div align="center">
   <table>
     <tr>
-      <td align="center" style="background-color:#ffe0e0; border:2px solid #d32f2f; border-radius:8px; padding:12px 18px;">
-        <b style="color:#c62828; font-size:1.1em;">⚠️ DENEYSEL PROJE</b><br>
-        <span style="color:#b71c1c;">Bu proje <b>deneyseldir</b> ve <b>tam stabil değildir.</b> Beklenmeyen hatalar veya davranış değişiklikleri olabilir.</span>
+      <td align="center" style="background-color:#e0f2f1; border:2px solid #00897b; border-radius:8px; padding:12px 18px;">
+        <b style="color:#004d40; font-size:1.1em;">✨ AJAN V0.3.0 (V3)</b><br>
+        <span style="color:#00695c;">Yeni nesil özellikler ve iyileştirmeler ile çalışmalar devam ediyor.</span>
       </td>
     </tr>
   </table>
@@ -31,7 +31,7 @@ _Gemma 4 E2B + Node-llama-cpp ile tamamen çevrimdışı çalışır — veriler
 
 ## 🛠️ Nasıl Yapıldı?
 
-> Bu proje, **🧢 Vibecoding** yöntemiyle [<img src="https://github.com/anomalyco/opencode/raw/dev/packages/console/app/src/asset/logo-ornate-dark.svg" alt="opencode" width="60em" style="vertical-align:middle">](https://opencode.ai) ile geliştirilmiştir.
+> Bu proje, **🧢 Vibecoding** yöntemiyle [<img src="https://github.com/anomalyco/opencode/raw/dev/packages/console/app/src/asset/logo-ornate-dark.svg" alt="opencode" width="60em" style="vertica[...]
 
 ---
 
@@ -78,7 +78,7 @@ _Gemma 4 E2B + Node-llama-cpp ile tamamen çevrimdışı çalışır — veriler
 
 ### 🗂️ Yayın (Release) Politikası
 
-> **Önemli:** Bu projenin **kaynak kodları GitHub deposunda bulunmaz.** Her **release** sürümünde kaynak kodu, ayrı bir paket (zip/tar) olarak **Release dosyalarına** yüklenir ve dağıtılır.
+> **Önemli:** Bu projenin **kaynak kodları GitHub deposunda bulunmaz.** Her **release** sürümünde kaynak kodu, ayrı bir paket (zip/tar) olarak **Release dosyalarına** yüklenir ve dağıtı[...]
 >
 > - ⚠️ Kaynak kodları repo'da **bulunmaz** — yalnızca release paketleri üzerinden yayımlanır.
 > - 📦 Her yeni sürüm, kaynak kodu paketiyle birlikte release olarak yayımlanır.
@@ -164,8 +164,8 @@ ajan model remove <id>   # Modeli sil
 | `/resume <id>` | Kayıtlı oturumu yükle |
 | `/export [dosya]` | Oturumu Markdown'a dışa aktar |
 | `/kopyala` | Son çıktıyı/yanıtı panoya kopyala |
-| `/todo` | Görevler: `ekle <metin> | sil <no> | temizle | list` |
-| `/model` | Model: `list | install <id> | use <id> | remove <id>` |
+| `/todo` | Görevler: `ekle <metin> \| sil <no> \| temizle \| list` |
+| `/model` | Model: `list \| install <id> \| use <id> \| remove <id>` |
 | `/cd <dizin>` | Çalışma dizinini değiştir |
 | `/doctor` | Sistem kontrolü (GPU, model, SAC) |
 | `/stats` | Bağlam ve oturum istatistikleri |
@@ -252,7 +252,7 @@ AJAN çekirdeği, otonom görevleri yerine getirmek için şu araçlara sahiptir
 | # | Aşama | Açıklama |
 |---|-------|----------|
 | 1 | **Model** | Gemma 4 E2B (GGUF) `node-llama-cpp` ile yüklenir; GPU varsa CUDA, yoksa CPU kullanılır |
-| 2 | **Ajan döngüsü** | `AjanService` mesajı modele iletir; model düşünür ve ilgili aracı (`tools/`) çağırır. Sonuç tekrar modele verilir; görev bitene kadar döngü sürer (maxSteps ile sınırlı) |
+| 2 | **Ajan döngüsü** | `AjanService` mesajı modele iletir; model düşünür ve ilgili aracı (`tools/`) çağırır. Sonuç tekrar modele verilir; görev bitene kadar döngü sürer (maxSt[...] |
 | 3 | **Bağlam** | Uzun konuşmalarda eski turlar otomatik sıkıştırılır, bağlam penceresi aşılmaz |
 | 4 | **Oturumlar** | Konuşmalar kaydedilir: `/sessions` listeler, `/resume <id>` geri yükler, `/export` Markdown'a döker |
 | 5 | **Güvenlik** | Lock mekanizması aynı anda tek arayüz çalıştırır; SAC durumu `/doctor` ile izlenir |
@@ -328,7 +328,7 @@ Ancak;
 - ❌ Kaynak kodunu erişilebilir kılmadan yalnızca derlenmiş halini dağıtamazsınız
 - ❌ Bu yazılım için **hiçbir garanti** verilmez
 
-> **Not:** Bu proje, özgür yazılım felsefesiyle geliştirilmiştir. GPL-3.0 yazılım özgürlüğü sağlar; telif hakkı sahipliğini devretmez. Tam lisans metni için **[LICENSE](./LICENSE)** dosyasına bakınız.
+> **Not:** Bu proje, özgür yazılım felsefesiyle geliştirilmiştir. GPL-3.0 yazılım özgürlüğü sağlar; telif hakkı sahipliğini devretmez. Tam lisans metni için **[LICENSE](./LICENSE[...]
 
 ---
 
