@@ -1,7 +1,7 @@
 {
   "$schema": "https://takimcizgisi.dev/schemas/ajan-models.json",
   "version": 1,
-  "source": "https://raw.githubusercontent.com/takimcizgisi/ajan/main/config/models.json",
+  "source": "https://raw.githubusercontent.com/takimcizgisi/ajan/Project/config/models.json",
   "models": [
     {
       "id": "gemma-4-e2b-q4-k-m",

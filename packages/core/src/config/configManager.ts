@@ -23,7 +23,7 @@ export const DEFAULT_CONFIG: AjanConfig = {
     contextTrimThreshold: 0.8,
     maxSteps: 25,
     beepOnComplete: true,
-    remoteModelsUrl: "https://raw.githubusercontent.com/takimcizgisi/ajan/main/packages/core/config/models.json",
+    remoteModelsUrl: "https://raw.githubusercontent.com/takimcizgisi/ajan/Project/packages/core/config/models.json",
     discord: {
         enabled: false,
         clientId: "",

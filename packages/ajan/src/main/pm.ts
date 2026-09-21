@@ -17,7 +17,7 @@ const SHELL = process.env.comspec ?? (process.platform === "win32" ? "cmd.exe" :
 
 const REGISTRY = "https://registry.npmjs.org";
 const GH_REPO = "takimcizgisi/ajan";
-const CATALOG_URL = `https://raw.githubusercontent.com/${GH_REPO}/main/packages.json`;
+const CATALOG_URL = `https://raw.githubusercontent.com/${GH_REPO}/Project/packages.json`;
 const CATALOG_FALLBACK = join(PKG_ROOT, "src", "renderer", "assets", "packages.json");
 
 function appVersion(): string | null {

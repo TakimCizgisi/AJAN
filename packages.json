@@ -4,7 +4,7 @@
         "label": "AJAN Core (AI Motoru)",
         "npmName": "@takimcizgisi/core",
         "githubPath": "packages/core",
-        "logoUrl": "https://raw.githubusercontent.com/takimcizgisi/ajan/main/packages/ajan/src/renderer/assets/ajan.png",
+        "logoUrl": "https://raw.githubusercontent.com/takimcizgisi/ajan/Project/packages/ajan/src/renderer/assets/ajan.png",
         "description": "Yerel AI motoru: otonom ajan döngüsü, LLM (node-llama-cpp), 20+ araç, model ve oturum yönetimi.",
         "kind": "core",
         "commands": [
@@ -23,7 +23,7 @@
         "label": "AJAN VSCode Uzantısı",
         "npmName": "@takimcizgisi/ajan-vscode",
         "githubPath": "packages/vscode",
-        "logoUrl": "https://raw.githubusercontent.com/takimcizgisi/ajan/main/packages/ajan/src/renderer/assets/ajan.png",
+        "logoUrl": "https://raw.githubusercontent.com/takimcizgisi/ajan/Project/packages/ajan/src/renderer/assets/ajan.png",
         "description": "VSCode entegrasyonu: ajan sohbeti, .ajan test alanı, araç yürütme ve model yönetimi.",
         "kind": "vscode",
         "commands": [

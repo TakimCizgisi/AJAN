@@ -85,13 +85,13 @@ AJAN global bir npm paketi olarak kurulur ve kurulurken hem **VSCode uzantısın
 - **Linux / macOS**
 
   ```sh
-  curl -fsSL https://raw.githubusercontent.com/takimcizgisi/ajan/main/install.sh | sh
+  curl -fsSL https://raw.githubusercontent.com/takimcizgisi/ajan/Project/install.sh | sh
   ```
 
 - **Windows (PowerShell)**
 
   ```powershell
-  curl.exe -fsSL https://raw.githubusercontent.com/takimcizgisi/ajan/main/install.bat -o "$env:TEMP\ajan-install.bat"; & "$env:TEMP\ajan-install.bat"
+  curl.exe -fsSL https://raw.githubusercontent.com/takimcizgisi/ajan/Project/install.bat -o "$env:TEMP\ajan-install.bat"; & "$env:TEMP\ajan-install.bat"
   ```
 
 ### B) Yerel depodan (geliştirici)
