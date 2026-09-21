@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAN - Siber Paket Yöneticisi</title>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:;">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+    <!-- En Üst Orta Logo Alanı (AJAN logosu) -->
+    <div class="header-logo-container">
+        <img class="main-logo-img" src="./assets/ajan.png" alt="AJAN" onerror="this.style.display='none'">
+        <div class="main-logo">AJAN</div>
+        <div class="main-subtitle" id="subtitle">Siber Paket Yöneticisi · sürüm —</div>
+    </div>
+
+    <!-- Ana Konteyner -->
+    <div class="container">
+
+        <!-- Arama Alanı -->
+        <div class="settings-group">
+            <div class="group-title">Paket Ara</div>
+            <div class="card">
+                <input type="text" id="searchInput" placeholder="Paket adı ile arama yapın...">
+            </div>
+        </div>
+
+        <!-- Paket Listesi -->
+        <div class="settings-group">
+            <div class="group-title">Kayıtlı Paketler <span id="catalogSource" class="group-source"></span></div>
+            <div id="packageList"><div class="card empty-hint">Katalog yükleniyor...</div></div>
+        </div>
+
+    </div>
+
+    <div class="toast" id="toast">İşlem gerçekleştirildi</div>
+
+    <script src="./renderer.js"></script>
+</body>
+</html>

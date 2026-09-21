@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAN - Siber Paket Yöneticisi</title>
+    <style>
+        /* ─── TEMEL AYARLAR VE SİBER RENK PALETİ (YUVARLATILMIŞ KENARLAR) ─── */
+        * { box-sizing: border-box; }
+
+        html, body {
+            margin: 0;
+            height: 100%;
+            background: #202020;
+            color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        /* ─── EN ÜST ORTADAKİ LOGO ALANI ─── */
+        .header-logo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .main-logo {
+            font-size: 2.2rem;
+            font-weight: 800;
+            letter-spacing: 3px;
+            color: #ff751f;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            border-bottom: 2px solid #ff751f;
+            padding-bottom: 5px;
+        }
+
+        .main-subtitle {
+            font-size: 0.85rem;
+            color: #8e8e93;
+            letter-spacing: 1px;
+        }
+
+        /* ─── ANA KONTEYNER ─── */
+        .container {
+            width: 100%;
+            max-width: 750px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .settings-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .group-title {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #8e8e93;
+            letter-spacing: 1px;
+        }
+
+        .card {
+            background: #252525;
+            border: 1px solid #333;
+            padding: 14px;
+            border-radius: 12px; /* Yuvarlatılmış köşe */
+        }
+
+        /* ─── PAKET KARTLARI VE LOGOLARI (YUVARLATILMIŞ) ─── */
+        .pkg-item {
+            background: #252525;
+            border: 1px solid #333;
+            padding: 16px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            border-radius: 12px; /* Yuvarlatılmış köşe */
+            transition: border-color 0.2s ease, transform 0.2s ease;
+        }
+
+        .pkg-item:hover {
+            border-color: #ff751f;
+        }
+
+        .pkg-logo {
+            width: 48px;
+            height: 48px;
+            background: #1a1a1a;
+            border: 1px solid #444;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #ff751f;
+            flex-shrink: 0;
+            border-radius: 10px; /* Yuvarlatılmış köşe */
+        }
+
+        .pkg-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .pkg-head {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .pkg-name {
+            font-weight: 600;
+            font-size: 15px;
+            color: #fff;
+        }
+
+        .pkg-version {
+            font-size: 11px;
+            color: #8e8e93;
+            font-family: ui-monospace, Consolas, monospace;
+        }
+
+        .pkg-badges {
+            margin-left: auto;
+            display: flex;
+            gap: 6px;
+        }
+
+        .badge {
+            padding: 3px 8px;
+            font-size: 10px;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-radius: 6px; /* Yuvarlatılmış köşe */
+        }
+
+        .badge.installed {
+            background: rgba(76, 175, 80, 0.18);
+            color: #4caf50;
+            border: 1px solid #4caf50;
+        }
+
+        .badge.compat {
+            background: rgba(255, 117, 31, 0.15);
+            color: #ff751f;
+            border: 1px solid #ff751f;
+        }
+
+        .pkg-desc {
+            font-size: 12px;
+            color: #8e8e93;
+            margin-top: 6px;
+            line-height: 1.4;
+        }
+
+        .pkg-actions {
+            margin-top: 12px;
+        }
+
+        /* ─── ARAMA ÇUBUĞU VE BUTONLAR (YUVARLATILMIŞ) ─── */
+        input[type="text"] {
+            background: #1a1a1a;
+            border: 1px solid #444;
+            color: #fff;
+            padding: 10px 14px;
+            width: 100%;
+            outline: none;
+            font-size: 13px;
+            border-radius: 8px; /* Yuvarlatılmış köşe */
+            transition: border-color 0.2s;
+        }
+
+        input[type="text"]:focus {
+            border-color: #ff751f;
+        }
+
+        .btn {
+            background: #252525;
+            color: #f8f9fa;
+            border: 1px solid #444;
+            padding: 7px 16px;
+            cursor: pointer;
+            font-size: 12px;
+            border-radius: 6px; /* Yuvarlatılmış köşe */
+            transition: all 0.2s ease;
+        }
+
+        .btn:hover {
+            background: #2e2e2e;
+        }
+
+        .btn.primary {
+            background: #ff751f;
+            border-color: #ff751f;
+            color: #202020;
+            font-weight: 600;
+        }
+
+        .btn.primary:hover {
+            background: #ff8533;
+        }
+
+        /* ─── TOAST BİLDİRİMİ (YUVARLATILMIŞ) ─── */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #252525;
+            border: 1px solid #ff751f;
+            padding: 12px 20px;
+            font-size: 13px;
+            display: none;
+            z-index: 2000;
+            color: #f8f9fa;
+            border-radius: 8px; /* Yuvarlatılmış köşe */
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .toast.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- En Üst Orta Logo Alanı -->
+    <div class="header-logo-container">
+        
+    </div>
+
+    <!-- Ana Konteyner -->
+    <div class="container">
+        
+        <!-- Arama Alanı -->
+        <div class="settings-group">
+            <div class="group-title">Paket Ara</div>
+            <div class="card">
+                <input type="text" id="searchInput" placeholder="Paket adı ile arama yapın...">
+            </div>
+        </div>
+
+        <!-- Paket Listesi -->
+        <div class="settings-group">
+            <div class="group-title">Kayıtlı Paketler</div>
+            <div id="packageList"></div>
+        </div>
+
+    </div>
+
+    <div class="toast" id="toast">İşlem gerçekleştirildi</div>
+
+    <script>
+        // ─── JAVASCRIPT MANTIĞI VE VERİ YÖNETİMİ ───
+
+        let packageDatabase = [
+            { 
+                id: '1', 
+                name: 'agent-core', 
+                version: '1.2.4', 
+                logoText: 'AC', 
+                description: 'Yapay zeka çekirdek karar mekanizması ve komut yürütücü modülü.', 
+                status: 'installed' 
+            },
+            { 
+                id: '2', 
+                name: 'cyber-ui-kit', 
+                version: '2.0.1', 
+                logoText: 'UI', 
+                description: 'Siber tema bileşenleri ve özel pencereler için arayüz kütüphanesi.', 
+                status: 'available' 
+            },
+            { 
+                id: '3', 
+                name: 'secure-vault', 
+                version: '3.1.0', 
+                logoText: 'SV', 
+                description: 'Uçtan uca şifrelenmiş hassas veri depolama ve senkronizasyon eklentisi.', 
+                status: 'installed' 
+            },
+            { 
+                id: '4', 
+                name: 'neural-parser', 
+                version: '1.0.8', 
+                logoText: 'NP', 
+                description: 'Metin tabanlı girdileri işleyip anlamlandıran optimize ayrıştırıcı.', 
+                status: 'available' 
+            }
+        ];
+
+        function renderPackageManager() {
+            const searchInput = document.getElementById('searchInput');
+
+            searchInput.addEventListener('input', (e) => {
+                const keyword = e.target.value.toLowerCase();
+                const filtered = packageDatabase.filter(p => p.name.toLowerCase().includes(keyword));
+                drawList(filtered);
+            });
+
+            drawList(packageDatabase);
+        }
+
+        function drawList(packages) {
+            const listEl = document.getElementById('packageList');
+            
+            if (!packages.length) {
+                listEl.innerHTML = `<div class="card" style="color: #8e8e93; font-size: 13px; text-align: center;">Aradığınız kriterlere uygun paket bulunamadı.</div>`;
+                return;
+            }
+
+            let html = '';
+            packages.forEach(pkg => {
+                const isInstalled = pkg.status === 'installed';
+                const badge = isInstalled 
+                    ? '<span class="badge installed">Yüklü</span>' 
+                    : '<span class="badge compat">İndirilebilir</span>';
+                
+                const actionBtn = isInstalled 
+                    ? `<button class="btn" onclick="togglePackage('${pkg.id}')">Kaldır</button>` 
+                    : `<button class="btn primary" onclick="togglePackage('${pkg.id}')">Yükle</button>`;
+
+                html += `
+                    <div class="pkg-item">
+                        <div class="pkg-logo">${pkg.logoText}</div>
+                        <div class="pkg-content">
+                            <div class="pkg-head">
+                                <span class="pkg-name">${pkg.name}</span>
+                                <span class="pkg-version">v${pkg.version}</span>
+                                <div class="pkg-badges">${badge}</div>
+                            </div>
+                            <div class="pkg-desc">${pkg.description}</div>
+                            <div class="pkg-actions">${actionBtn}</div>
+                        </div>
+                    </div>
+                `;
+            });
+            listEl.innerHTML = html;
+        }
+
+        window.togglePackage = function(id) {
+            const pkg = packageDatabase.find(p => p.id === id);
+            if (!pkg) return;
+
+            if (pkg.status === 'installed') {
+                pkg.status = 'available';
+                showToast(`"${pkg.name}" sistemden kaldırıldı.`);
+            } else {
+                pkg.status = 'installed';
+                showToast(`"${pkg.name}" başarıyla yüklendi!`);
+            }
+            
+            const keyword = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = packageDatabase.filter(p => p.name.toLowerCase().includes(keyword));
+            drawList(filtered);
+        }
+
+        function showToast(text) {
+            const toast = document.getElementById('toast');
+            toast.textContent = text;
+            toast.classList.add('show');
+            setTimeout(() => { 
+                toast.classList.remove('show'); 
+            }, 2500);
+        }
+
+        renderPackageManager();
+    </script>
+</body>
+</html>

@@ -1,370 +1,315 @@
-<p align="center">
-  <img src="./Assets/AJAN_LOGO.svg" alt="AJAN AI" width="420">
-</p>
+# AJAN AI
 
-<div align="center">
+```
+▀█▀ ▄▀█ █▄▀ █ █▀▄▀█ █▀▀ █ ▀█ █▀▀ █ █▀ █
+░█░ █▀█ █░█ █ █░▀░█ █▄▄ █ █▄ █▄█ █ ▄█ █
+```
 
-**[AJAN AI](https://github.com/takimcizgisi/ajan)** — Tamamen yerel, açık kaynak yapay zeka kodlama ajanı.
+**Otonom, yerel AI kodlama ajanı** — TakımÇizgisi Yazılım Geliştirme Grubu
 
-![Version](https://img.shields.io/badge/sürüm-v0.2.5-ff751f)
-![License](https://img.shields.io/badge/lisans-GPL--3.0-1a1a1a)
-![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)
-![Node](https://img.shields.io/badge/Node.js-18%2B-339933?logo=node.js&logoColor=white)
-![Platform](https://img.shields.io/badge/Windows%20%7C%20Linux%20%7C%20macOS-555)
+AJAN, görevleri bağımsız olarak **planlayan**, **kod yazan**, **test eden** ve **sonuçları doğrulayan** bir yapay zeka ajanıdır. Tümüyle yerel çalışır: modeliniz bilgisayarınızda koşar, dosyalarınız cihazınızdan çıkmaz. VSCode uzantısı ile gelir ve AI motoru olarak **node-llama-cpp** kullanır (CUDA / Vulkan / Metal / CPU).
 
-_Gemma 4 E2B + Node-llama-cpp ile tamamen çevrimdışı çalışır — verileriniz cihazınızdan çıkmaz._
-
-<div align="center">
-  <table>
-    <tr>
-      <td align="center" style="background-color:#ffe0e0; border:2px solid #d32f2f; border-radius:8px; padding:12px 18px;">
-        <b style="color:#c62828; font-size:1.1em;">⚠️ DENEYSEL PROJE</b><br>
-        <span style="color:#b71c1c;">Bu proje <b>deneyseldir</b> ve <b>tam stabil değildir.</b> Beklenmeyen hatalar veya davranış değişiklikleri olabilir.</span>
-      </td>
-    </tr>
-  </table>
-</div>
-
-</div>
+> **Neden yerel?** Bulut ajanların aksine AJAN hiçbir koda, yapılandırmaya veya sohbete dışarı erişim vermez. 3–8 GB'lık model bilgisayarınızda indirilir ve tüm işlemler tamamen offline yürütülür.
 
 ---
 
-## 🛠️ Nasıl Yapıldı?
+## İçindekiler
 
-> Bu proje, **🧢 Vibecoding** yöntemiyle [<img src="https://github.com/anomalyco/opencode/raw/dev/packages/console/app/src/asset/logo-ornate-dark.svg" alt="opencode" width="60em" style="vertical-align:middle">](https://opencode.ai) ile geliştirilmiştir.
-
----
-
-## ✨ Özellikler
-
-- 🤖 **Yerel AI Motoru** — Node-llama-cpp ile tamamen çevrimdışı ve gizlilik odaklı
-- 🖥️ **Çift Arayüz** — Terminal (TUI) ve masaüstü GUI (Electron)
-- 💬 **Sohbet Modu** — Çoklu oturum, geçmiş kaydı ve model seçimi
-- 🔧 **Görev / Ajan Modu** — Dosya, terminal, web ve patch araçlarıyla otonom görevler
-- 📥 **Model Yönetimi** — Modelleri indirme, kurma ve yönetme
-- 📁 **Proje Yönetimi** — Ajanı belirli proje klasörlerine bağlama
-- ⚙️ **Yapılandırılabilir** — Kullanıcı dostu ayarlar ekranı
-- 📦 **Kolay Kurulum** — Kurulumdan sonra ek yapılandırma gerektirmez
-
----
-
-## 📖 İçindekiler
-
-- [Teknik Bilgiler](#-teknik-bilgiler)
-- [Kurulum](#-kurulum)
-- [Kullanım](#-kullanım)
-- [Araçlar](#-araçlar-tools)
-- [Nasıl Çalışır](#-nasıl-çalışır)
-- [Proje Yapısı](#-proje-yapısı)
-- [Katkı & Lisans](#-katkı--lisans)
+- [Özellikler](#özellikler)
+- [Nasıl çalışır?](#nasıl-çalışır)
+- [Gereksinimler](#gereksinimler)
+- [Kurulum](#kurulum)
+- [İzinler](#izinler)
+- [VSCode Kullanımı](#vscode-kullanımı)
+- [Ayarlar](#ayarlar)
+- [Modeller](#modeller)
+- [Araçlar (Tools)](#araçlar-tools)
+- [SDK Olarak Kullanım](#sdk-olarak-kullanım)
+- [Proje Yapısı](#proje-yapısı)
+- [Geliştirme](#geliştirme)
+- [Kaldırma](#kaldırma)
+- [Sorun Giderme](#sorun-giderme)
+- [Lisans](#lisans)
 
 ---
 
-## 🖥️ Teknik Bilgiler
+## Özellikler
 
-| Özellik | Bilgi |
-|---------|-------|
-| 🧠 Model | Gemma 4 E2B (GGUF) |
-| 🔌 AI Motoru | node-llama-cpp |
-| 💾 RAM / VRAM | Yaklaşık 4 GB |
-| 🧾 Bağlam | Yüksek token (Gemma 4 E2B) |
-| 🖥️ Platform | Windows, Linux, macOS |
-| 🖱️ Arayüz | CLI (TUI) + Electron GUI |
-| 📝 Dil | TypeScript |
+- **Otonom ajan döngüsü** — görevi planlar, adımları araçlarla uygular, sonucu doğrular, bitirir.
+- **Tamamen yerel LLM** — `node-llama-cpp` üzerinde Gemma / Qwen GGUF modelleri; buluta kod/hiç veri gönderilmez.
+- **GPU hızlandırma** — CUDA, Vulkan, Metal (macOS), WebGPU veya saf CPU; GPU katman sayısı `auto`/`max`.
+- **VSCode entegrasyonu** — Activity Bar sekmesi (turuncu), yerleşik sohbet + `.ajan` test alanı (playground).
+- **20'ye yakın yerleşik araç** — dosya okuma/yazma, grep/arama, kod düzenleme, diff uygulama, terminal komutu, web arama, not defteri, todo yönetimi vb.
+- **Akıllı dosya sistemi** — yol güvenliği, dizin dışı erişim engelleme, izin verilen kök kontrolü.
+- **128K bağlam** — Gemma 4 E2B ile uzun proje bağlamı.
+- **Model yönetimi** — `config/models.json` kayıt defteri + uzaktan güncelleme, indirme/onarım, modele özel GGUF.
+- **Oturum yönetimi** — sohbet geçmişini diske kaydeder, yeni sohbet başlatabilir.
+- **Playground (`.ajan`)** — sınırsız hakları istemeden betik/todo/test senaryosu çalıştırma alanı.
+- **Discord presence** — ayarlanabilir "şu anda AJAN çalışıyor" durumu.
+- **Konsol / Test betikleri** — `scripts/` altında otomasyon, paketleme (VSIX + npm tgz), dağıtım ve smoke test araçları.
 
----
+## Nasıl çalışır?
 
-## 📥 Kurulum
+1. **Model yüklenir** — `node-llama-cpp` modeli indirir (HUFF/GGUF kaynağından) ve GPU/CPU ile yükler.
+2. **Ajan döngüsü başlar** — `core/agent.ts`, kullanıcı mesajını modele verir; model araç çağrısı yaparsa araç çalıştırılır (`tools/registry.ts`).
+3. **Sonuç modele geri döner** — araç çıktısı modele iletılır; ajan "görev tamam" diyene (veya maksimum adıma ulaşana) kadar döngü sürer.
+4. **Doğrulama** — görev tamamlandığında `taskComplete` aracı özeti raporlar; hatalar "GERÇEKLEŞMEDİ" olarak işaretlenir ve asla başarılı diye raporlanmaz.
 
-### 🗂️ Yayın (Release) Politikası
+Tüm araç çağrıları çalışma dizini/politika ile kısıtlanır; terminal komutları ve web erişimi varsayılan olarak güvenli sınırlarda tutulur.
 
-> **Önemli:** Bu projenin **kaynak kodları GitHub deposunda bulunmaz.** Her **release** sürümünde kaynak kodu, ayrı bir paket (zip/tar) olarak **Release dosyalarına** yüklenir ve dağıtılır.
+## Gereksinimler
+
+| Bileşen | Gereksinim |
+|---|---|
+| Node.js | `>= 26.4.0` |
+| npm | `11.x` (npm 11 `allowScripts` izin sistemini kullanır) |
+| VSCode | `^1.95.0` (uzantı için) |
+| RAM | Model başına ~3–8 GB (Q4: ~3–4 GB, Q8: ~5–8 GB) |
+| GPU (ops.) | NVIDIA CUDA, Intel/AMD Vulkan, Apple Metal — yoksa CPU |
+| Disk | Model başına ~3–8 GB + uygulama paketi |
+
+## Kurulum
+
+AJAN global bir npm paketi olarak kurulur ve kurulurken hem **VSCode uzantısını** hem de **AI motorunu** (node-llama-cpp) otomatik kurar. İki yol vardır: tek satırlık indirici veya yerel depo.
+
+> ⚠️ **Sürüm uyumluluğu:** Eski sürümler (`0.2.x` ve daha eskisi) artık **desteklenmiyor**. Yalnızca en güncel sürümü kurun:
 >
-> - ⚠️ Kaynak kodları repo'da **bulunmaz** — yalnızca release paketleri üzerinden yayımlanır.
-> - 📦 Her yeni sürüm, kaynak kodu paketiyle birlikte release olarak yayımlanır.
-> - 🔗 Kaynak kodu almak için en güncel sürümün **Release** sayfasındaki kaynak arşivini indirin.
-
-### Gereksinimler
-
-- ✅ **Node.js** 18 veya daha yeni
-- ✅ **npm** veya **yarn**
-- ✅ (İsteğe bağlı) GPU hızlandırma için **CUDA**
-
-### ☁️ Global Kurulum (npm)
-
-```bash
-npm install -g @takimcizgisi/ajan
-```
-
-Global kurulumdan sonra `ajan` komutunu doğrudan terminalden kullanabilirsiniz.
-
-### 🧑‍💻 Geliştirici Kurulumu
-
-```bash
-git clone https://github.com/takimcizgisi/ajan.git
-cd ajan
-npm install
-npm run build:all
-```
-
----
-
-## 🚀 Kullanım
-
-### 💻 CLI (Terminal) Arayüzü
-
-```bash
-npm run dev          # Geliştirme modunda CLI
-npm start            # Derlenmiş CLI
-ajan                 # Global kurulumda sohbet TUI'si
-```
-
-### 🖥️ GUI (Masaüstü) Arayüzü
-
-```bash
-npm run dev:gui      # Geliştirme modunda GUI (build + electron)
-npm run gui          # Paketlenmiş GUI
-ajan gui             # Global kurulumda GUI
-```
-
-> 💡 GUI ilk açılışta model indirilmesini isteyebilir; ilerleme arayüzde gösterilir.
-
-### 📦 npm Betikleri
-
-| Betik | Açıklama |
-|-------|----------|
-| `build` | CLI (TypeScript) derle |
-| `build:gui` | GUI (TypeScript) derle |
-| `build:all` | CLI + GUI birlikte derle |
-| `build:electron` | Electron tip kontrolü (derleme yok) |
-| `doctor` | Sistem / bağımlılık kontrolü |
-| `test:tools` | Araçların smoke testleri |
-| `release` | Sürüm paketleme |
-
-### 🧩 CLI Alt Komutları
-
-```bash
-ajan                 # Sohbet TUI'sini başlat (varsayılan)
-ajan gui             # Masaüstü arayüzünü başlat
-ajan model list      # Modelleri listele
-ajan model install <id>  # Model indir
-ajan model use <id>      # Modeli etkin yap
-ajan model remove <id>   # Modeli sil
-```
-
----
-
-## ⌨️ CLI Komutları (TUI içinde)
-
-| Komut | Açıklama |
-|-------|----------|
-| `/yeni` | Yeni oturum başlat |
-| `/clear` | Konuşma geçmişini temizle |
-| `/sessions` | Kayıtlı oturumları listele |
-| `/resume <id>` | Kayıtlı oturumu yükle |
-| `/export [dosya]` | Oturumu Markdown'a dışa aktar |
-| `/kopyala` | Son çıktıyı/yanıtı panoya kopyala |
-| `/todo` | Görevler: `ekle <metin> | sil <no> | temizle | list` |
-| `/model` | Model: `list | install <id> | use <id> | remove <id>` |
-| `/cd <dizin>` | Çalışma dizinini değiştir |
-| `/doctor` | Sistem kontrolü (GPU, model, SAC) |
-| `/stats` | Bağlam ve oturum istatistikleri |
-| `/tools` | Ajanın araçlarını listele |
-| `/config [anahtar değer]` | Ayarları göster/değiştir |
-| `/help` | Komutları listele |
-| `/exit` | Çıkış yap |
-
-> **Yapılandırma örnekleri**
->
-> ```text
-> /config temperature 0.7      # Sıcaklık (0-2)
-> /config maxTokens 2048       # Maks. üretim token'ı (>=256)
-> /config maxSteps 40          # Maks. ajan adımı (1-200)
+> ```sh
+> npm install -g @takimcizgisi/ajan@latest
 > ```
 
----
+### A) Tek satır (yayınlanınca kullanılabilir)
 
-## 📚 Kullanım Örnekleri
+> Paket henüz npm registry'sine **yayınlanmadı** — bu komutlar var olduğunda çalışacaktır.
 
-### 💬 Basit Sohbet
+- **Linux / macOS**
 
-```bash
-ajan
+  ```sh
+  curl -fsSL https://raw.githubusercontent.com/takimcizgisi/ajan/Project/install.sh | sh
+  ```
+
+- **Windows (PowerShell)**
+
+  ```powershell
+  curl.exe -fsSL https://raw.githubusercontent.com/takimcizgisi/ajan/Project/install.bat -o "$env:TEMP\ajan-install.bat"; & "$env:TEMP\ajan-install.bat"
+  ```
+
+### B) Yerel depodan (geliştirici)
+
+Depo kökünde:
+
+- **Windows:**
+
+  ```bat
+  install.bat
+  ```
+
+- **Linux / macOS:**
+
+  ```sh
+  sh install.sh
+  ```
+
+Installers şunları yapar:
+
+1. Node.js (`>=26.4`) ve npm varlığını/uygunluğunu kontrol eder.
+2. Kaynağı seçer: yerel depodaki tarball veya npm registry paketi.
+3. VSCode uzantısı için izin ister/sessiz onay alır (`AJAN_YES=1`).
+4. Paketi `--allow-scripts=node-llama-cpp` ile global kurar (LLM motoru native binary'lerini indirir).
+5. VSIX kurulumu Electron paket yöneticisi (`packages/ajan`) üzerinden `code --install-extension` ile çalıştırılır.
+6. Global kurulumu, AI motorunu ve VSCode uzantısını doğrular.
+
+**Belli bir sürümü registry'den kurmak** (yayınlandığında):
+
+```sh
+sh install.sh 0.3.0      # Linux/macOS
+install.bat 0.3.0        # Windows
 ```
 
-```text
-> Merhaba
-AJAN  Merhaba! Size nasıl yardımcı olabilirim?
+**Yerel paketi yeniden derlemek** (dist/vsix taze olsun diye):
+
+```sh
+AJAN_REPACK=1 sh install.sh     # Linux/macOS
+set AJAN_REPACK=1 && install.bat   # Windows
 ```
 
-### 🔧 Kodlama / Görev Ajanı
+## İzinler
 
-```bash
-ajan
-> Bu projenin testlerini çalıştır ve sonuçları özetle
+AJAN, kurulum ve çalışma için aşağıdaki izinleri kullanır:
+
+| İzin | Nerede | Neden |
+|---|---|---|
+| VSCode uzantı kurulumu | Electron paket yöneticisi | `paket yöneticisi` ayarlarından VSIX'i kurar |
+| LLM motoru betikleri (native binary) | `--allow-scripts=node-llama-cpp` | model dosyaları ve CUDA/Vulkan/CPU binary'leri |
+| Çalışma dizini + terminal | VSCode `ajan.workspaceDir` ayarı | dosya okuma/yazma ve komut çalıştırma bu dizinle sınırlanır |
+
+> **npm 12 notu:** npm, `allowScripts` dışındaki `postinstall` betiklerini yakında varsayılan olarak engelleyecek. Bu nedenle installers, VSIX kurulumunu npm'in postinstall mekanizmasına değil doğrudan çalıştırmaya dayanır. npm 11'de isterseniz kalıcı izin için:
+>
+> ```sh
+> npm config set allow-scripts=node-llama-cpp --location=user
+> ```
+
+## VSCode Kullanımı
+
+Kurulumdan sonra VSCode'u açın — sol Activity Bar'da turuncu **AJAN** sekmesi görünür.
+
+| Komut (Palette / Araç çubuğu) | Açıklama |
+|---|---|
+| `AJAN: Sohbeti Aç` (`ajan.chat`) | Sohbet webview'ini açar |
+| `AJAN: Yeni Sohbet` (`ajan.newChat`) | Oturum sıfırlar, yeni sohbet başlatır |
+| `AJAN: Üretimi Durdur` (`ajan.stop`) | Devam eden üretimi durdurur |
+| `AJAN: Model Listesini Yenile` (`ajan.refreshModels`) | Model kayıt defterini yeniden yükler / uzaktan günceller |
+| `AJAN: Ayarları Aç` (`ajan.openSettings`) | VSCode ayarlarını açar |
+| `AJAN: Test Alanını Aç (.ajan)` (`ajan.openPlayground`) | Sınırsız hak listesi olmadan betik/todo test alanı |
+
+## Ayarlar
+
+VSCode ayarlarında (`settings.json`) `ajan.*` anahtarları:
+
+| Ayar | Varsayılan | Açıklama |
+|---|---|---|
+| `ajan.workspaceDir` | `""` (aktif klasör) | AJAN çalışma dizini; dosya/terminal işlemlerinin kökü |
+| `ajan.modelId` | `gemma-4-e2b-q4-k-m` | Kullanılacak model kimliği (`config/models.json`) |
+| `ajan.gpu` | `auto` | `auto` \| `metal` \| `cuda` \| `vulkan` \| `webgpu` \| `cuda-llama` \| `vulkan-llama` |
+| `ajan.gpuLayers` | `auto` | GPU katman sayısı (`auto`/`max` veya sayı) |
+| `ajan.contextSize` | `auto` | Bağlam penceresi (token) |
+| `ajan.temperature` | `0.6` | Samimiyet / rastlantısallık (0–2) |
+| `ajan.maxTokens` | `8192` | Maks. üretilecek token |
+| `ajan.maxSteps` | `25` | Otonom görevde maksimum araç adımı |
+| `ajan.toolTimeout` | `60000` | Tek araç zaman aşımı (ms) |
+| `ajan.maxToolOutput` | `40000` | Araç çıktısının log'lanacak maks. karakteri |
+| `ajan.beepOnComplete` | `false` | Görev bitince bip çal |
+
+## Modeller
+
+Kayıt defteri: `config/models.json` (uzaktan `refreshRemoteModels` ile güncellenebilir). İndirilen dosyalar `getModelsDir()` altında tutulur.
+
+| Model | Dosya / boyut | Bağlam | Açıklama |
+|---|---|---|---|
+| `gemma-4-e2b-q4-k-m` | `gemma-4-E2B-it-Q4_K_M.gguf` ~3–4 GB | 128K | **Varsayılan.** 4-bit, muhakeme + çoklu mod |
+| `gemma-4-e2b-q8` | `gemma-4-E2B-it-Q8_0.gguf` ~5–8 GB | 128K | Daha yüksek kalite, daha fazla RAM |
+| `gemma-3-4b-it-q4-k-m` | `Gemma-3 4B Q4_K_M` | 32K | Çoklu mod destekli, orta boy alternatif |
+| `qwen-3-4b-instruct-q4-k-m` | `Qwen3 4B Q4_K_M` | 32K | Güçlü tool-calling alternatifi |
+
+Modeller Hugging Face GGUF kaynaklarından indirilir (`uri` alanı), indirme ilerlemesi SDK üzerinden `events` ile takip edilebilir.
+
+## Araçlar (Tools)
+
+Ajanın kullanabildiği araçlar `tools/registry.ts` içinde toplanır:
+
+| Araç | İşlev |
+|---|---|
+| `readFile` / `writeFile` | Dosya okuma / yazma |
+| `listDir` | Dizin içeriği |
+| `searchFiles` | Dosya adı arama |
+| `grep` | İçerik arama (regex) |
+| `editFile` | Konum bazlı dosya düzenleme |
+| `applyPatch` | Unified diff uygulama (`parseUnifiedDiff`) |
+| `runCommand` | Terminal komutu çalıştırma (zaman aşımı + ağaç öldürme 👉 *Windows'ta timeout'lu süreçleri temiz kapatır*) |
+| `moveFile` / `deleteFile` | Dosya taşıma / silme |
+| `readData` / `unzipFile` | Veri bölgesi okuma / arşiv açma |
+| `webSearch` / `fetchUrl` | Web arama / URL içeriği |
+| `noteAdd` / `noteRead` | Kalıcı ajan not defteri |
+| `taskComplete` | Görevi bitir ve sonucu raporla |
+| `openPlayground` / `setTodos` / `getTodos` | Todo yönetimi ve `.ajan` test alanı |
+
+## SDK Olarak Kullanım
+
+Paket bir Node kütüphanesi olarak da kullanılabilir (`dist/index.js`, tip bildirimleri `dist/index.d.ts`):
+
+```ts
+import { AjanAgent, AjanService, LlamaEngine, loadConfig, getModelsRegistry } from "@takimcizgisi/ajan";
+
+const config = await loadConfig();                       // ajan.jsonc
+const models = getModelsRegistry();                      // config/models.json
+const model = models.find((m) => m.id === config.modelId);
+
+const engine = new LlamaEngine(model, { gpu: "auto" });
+await engine.load();
+
+const agent = new AjanAgent(engine, { maxSteps: 25 });
+agent.on("toolCall", ({ name, params }) => console.log("araç:", name));
+agent.on("toolResult", ({ name, ok, output }) => console.log(name, ok ? "ok" : "hata"));
+
+const answer = await agent.run("src/index.ts dosyasını incele ve birim test ekle");
+console.log(answer);
 ```
 
-AJAN, terminal aracını kullanarak komutu çalıştırır, çıktıyı analiz eder ve sonucu özetler — görev tamamlanana kadar araçları otonom şekilde sırayla kullanır.
+Ayrıca dışa aktarılanlar: `DiscordPresence`, `downloadModel`, `listInstalledModels`, `isModelInstalled`, `resolveModelFilePath`, `refreshRemoteModels`, `parseUnifiedDiff`, `createCoreTools`, `getDataDir/getModelsDir/getConfigPath/getLogDir` vb.
 
-### 🧠 Model Yönetimi
+## Proje Yapısı
 
-```bash
-ajan model list
-ajan model install gemma-4-e2b-q4-k-m
-ajan model use gemma-4-e2b-q4-k-m
+Monorepo; her paket bağımsız sürüm/kimliğe sahiptir (`@takimcizgisi/*`).
+
+```
+AJAN/
+├── package.json             # kök: private workspace orchestrator
+├── tsconfig.base.json       # ortak TS ayarları
+├── scripts/
+│   ├── clean.mjs            # paket çıktılarını temizler
+│   └── release.mjs          # üretim: build → core tgz / publish / electron-builder
+└── packages/
+    ├── core/                # @takimcizgisi/core — yerel AI motoru (SDK)
+    │   ├── src/
+    │   │   ├── core/        # Ajan döngüsü (agent.ts)
+    │   │   ├── engine/      # LLM motoru (llama.ts) + model indirme (modelManager.ts)
+    │   │   ├── config/      # konfigürasyon + model kayıt defteri (types.ts, configManager.ts)
+    │   │   ├── tools/       # 20'ye yakın ajan aracı + kayıt (registry.ts)
+    │   │   ├── utils/       # oturum, proje bağlamı, dizin/yerel yollar
+    │   │   ├── discord/     # Discord presence (presence.ts)
+    │   │   ├── service.ts   # üst düzey servis (olaylar, durum)
+    │   │   └── index.ts     # SDK dışa aktarımları
+    │   ├── config/models.json  # model kayıt defteri
+    │   └── scripts/smoke-*.ts  # araç smoke testleri
+    ├── vscode/              # ajan (takimcizgisi.ajan, npm @takimcizgisi/ajan-vscode) — VSCode uzantısı
+    │   ├── src/             # extension, panel, backend (AjanBackendBridge), ajanService
+    │   └── media/           # webview chat UI
+    └── ajan/                # @takimcizgisi/ajan — Electron GUI (ana AJAN + paket yöneticisi)
+        ├── src/main/        # electron main, ipc köprüsü, pm.ts (paket yöneticisi)
+        ├── src/preload.ts   # güvenli contextBridge API
+        └── src/renderer/    # chat arayüzü
 ```
 
-### 📦 Bağımlılıklar
+> `@takimcizgisi/ajan` (Electron) bir paket yöneticisidir: `~/.ajan/packages` yönetim
+> dizini altına `@takimcizgisi/core` motorunu ve `@takimcizgisi/ajan-vscode` uzantısını
+> kurar/günceller.
 
-| Paket | Rol |
-|-------|-----|
-| **node-llama-cpp** | Yerel LLM motoru (yükleme + inferans) |
-| **chalk** | Terminal renklendirme (TUI) |
-| **diff** | Satır farkı / yama hesaplama |
-| **js-yaml** | Yapılandırma / YAML ayrıştırma |
-| **adm-zip** | Model arşivlerini açma |
-| **electron** · **tsx** · **typescript** | GUI kabuğu ve dev araçları |
+## Geliştirme
 
----
-
-## 🛠️ Araçlar (Tools)
-
-AJAN çekirdeği, otonom görevleri yerine getirmek için şu araçlara sahiptir:
-
-| Araç | Görev |
-|------|-------|
-| **file** | Dosya oku / yaz / listele |
-| **edit** | Mevcut dosyaları düzenle |
-| **filesys** | Dosya sistemi operasyonları |
-| **patch** | Yama (diff) uygula / üret |
-| **terminal** | Shell komutları çalıştır |
-| **web** | Web sayfası getir / ara |
-| **memory** | Kısa / uzun dönem bellek yönetimi |
-| **data** | Veri işleme / sorgulama |
-| **taskComplete** | Görev tamamlandı işareti |
-
-> ⚙️ Her araç çağrısı TUI/GUI'de görsel olarak izlenir: `çalıştırılıyor... → ✅ / ❌`
-
----
-
-## ⚙️ Nasıl Çalışır?
-
-| # | Aşama | Açıklama |
-|---|-------|----------|
-| 1 | **Model** | Gemma 4 E2B (GGUF) `node-llama-cpp` ile yüklenir; GPU varsa CUDA, yoksa CPU kullanılır |
-| 2 | **Ajan döngüsü** | `AjanService` mesajı modele iletir; model düşünür ve ilgili aracı (`tools/`) çağırır. Sonuç tekrar modele verilir; görev bitene kadar döngü sürer (maxSteps ile sınırlı) |
-| 3 | **Bağlam** | Uzun konuşmalarda eski turlar otomatik sıkıştırılır, bağlam penceresi aşılmaz |
-| 4 | **Oturumlar** | Konuşmalar kaydedilir: `/sessions` listeler, `/resume <id>` geri yükler, `/export` Markdown'a döker |
-| 5 | **Güvenlik** | Lock mekanizması aynı anda tek arayüz çalıştırır; SAC durumu `/doctor` ile izlenir |
-
----
-
-## ⌨️ Kısayollar
-
-| Tuş | İşlev |
-|-----|-------|
-| `Enter` | Mesaj gönder |
-| `ESC` | Üretimi durdur |
-| `TAB` | Komut otomatik tamamlama (TUI) |
-| `↑` / `↓` | Geçmiş / imleç gezinme |
-| `Page Up` / `Down` | Kaydırma |
-| `Ctrl + C` / `/exit` | Çıkış |
-| GUI üst menü | Yeni sohbet · Projeler · İndirmeler · Ayarlar |
-
----
-
-## 📂 Proje Yapısı
-
-```text
-ajan/
-├── config/                 # Yapılandırma dosyaları
-├── dist/                   # Derlenmiş çıktı
-├── scripts/                # Betikler (release, smoke-test)
-├── src/
-│   ├── index.ts            # Paket girişi
-│   ├── service.ts          # Servis katmanı
-│   ├── cli/                # CLI & TUI arayüzü
-│   │   ├── index.ts
-│   │   └── tui.ts
-│   ├── core/               # Ajan çekirdeği (agent)
-│   ├── engine/             # Llama motoru + model yönetimi
-│   ├── electron/           # GUI kabuk (main + preload)
-│   ├── gui/                # Masaüstü arayüzü (HTML/CSS/JS/TS)
-│   ├── tools/              # Dosya, terminal, web, patch araçları
-│   └── utils/              # Yardımcı işlevler
-└── package.json
+```sh
+npm install                 # workspace bağımlılıkları (kök package.json allowScripts içerir)
+npm run build               # core → vscode derler
+npm run build:electron      # Electron paketini derler
+npm run dev:electron        # Electron GUI'yi çalıştırır
+npm run test:tools          # core araç smoke testleri
+npm run vscode:package      # VSIX üretir
+npm run release             # hepsini derler + core tgz üretir
 ```
 
-> **GUI** — `src/gui/` altında `html/`, `css/`, `ts/` (kaynak) ve `js/` (derlenmiş) klasörlerinden oluşur; `assets/` içinde Bootstrap, font ve görseller bulunur.
+| Betik | Ne yapar |
+|---|---|
+| `npm run build -w packages/core` | core derler (`tsc`) → `packages/core/dist/` |
+| `npm run build -w packages/vscode` | uzantı derler (`esbuild`) → `packages/vscode/out/` |
+| `npm run build -w packages/ajan` | Electron derler → `packages/ajan/dist/` |
+| `dev:electron` | Electron GUI'yi başlatır (uygulama, paket yöneticisini açar) |
+| `test:tools` / `test:new` | `tsx` ile smoke testleri (kalıntı süreç/dizin bırakmaz) |
 
----
+## Kaldırma
 
-## 🤝 Katkı & Lisans
+```sh
+npm uninstall -g @takimcizgisi/ajan
+code --uninstall-extension takimcizgisi.ajan
+```
 
-### 🤝 Katkıda Bulunma
+## Sorun Giderme
 
-Katkılar her zaman memnuniyetle karşılanır!
+- **`EALLOWSCRIPTS` / postinstall engellendi** → `--allow-scripts=node-llama-cpp` kullanın veya çalıştırın: `npm config set allow-scripts=node-llama-cpp --location=user`.
+- **VSCode açıkken uzantı kurulamıyor** → "Please restart VS Code" hatası VSCode CLI yüzündendir: VSCode'u tamamen kapatıp tekrar deneyin veya `code --install-extension <ajan-*.vsix> --force`.
+- **`'code' komutu PATH'te yok`** → VSCode içinde `Ctrl+Shift+P` → "Shell Command: Install 'code' command in PATH".
+- **Model indirme yavaş / kesildi** → model dosyaları yeniden denenebilir; `isModelInstalled()` ile durumu kontrol edin. Disk alanınızı (3–8 GB) kontrol edin.
+- **Electron binary inmezse** → `node node_modules/electron/install.js` komutunu ağ bağlantısı uygun ortamda çalıştırın.
+- **`node-llama-cpp` dizini görünmüyor** → `@takimcizgisi/core` yönetim dizinindeki (`~/.ajan/packages`) node_modules altına kurulur; ilk kullanımda otomatik çözülür.
 
-1. Repository'yi **fork** edin
-2. Yeni bir **branch** oluşturun
-3. Değişikliklerinizi yapın
-4. Açıklayıcı **commit** mesajları kullanın
-5. **Pull request** gönderin
+## Lisans
 
-### ⚖️ Lisans
-
-Bu proje **[GNU GPL v3.0](./LICENSE)** — _GNU General Public License v3_ — ile yayımlanan **özgür ve copyleft** bir yazılımdır.
-
-GPL-3.0 kapsamında bu projeyi;
-
-- ✅ Kullanabilirsiniz
-- ✅ İnceleyebilirsiniz
-- ✅ Değiştirebilirsiniz
-- ✅ Dağıtabilirsiniz (ücretli/ücretsiz)
-
-Ancak;
-
-- ❌ Değiştirdiğiniz/dağıttığınız sürümleri aynı GPL-3.0 lisansı altında yayımlamadan dağıtamazsınız (copyleft)
-- ❌ Kaynak kodunu erişilebilir kılmadan yalnızca derlenmiş halini dağıtamazsınız
-- ❌ Bu yazılım için **hiçbir garanti** verilmez
-
-> **Not:** Bu proje, özgür yazılım felsefesiyle geliştirilmiştir. GPL-3.0 yazılım özgürlüğü sağlar; telif hakkı sahipliğini devretmez. Tam lisans metni için **[LICENSE](./LICENSE)** dosyasına bakınız.
-
----
-
-## 💛 Destekleyin
-
-Açık kaynak, topluluğun desteğiyle yaşar. Bu projeye katkıda bulunmanın birkaç yolu vardır:
-
-### ⭐ AJAN'a Destek
-
-- Repoya ⭐ **yıldız** verin — görünürlük her şeydir
-- 🐛 Bug bildirin veya 💡 özellik önerisi açın (Issues)
-- 🔧 Kod, dökümantasyon veya çeviri katkısı sağlayın
-- 📣 Projeyi çevrenizle paylaşın
-
-### 🌐 OpenCode'a Destek
-
-**AJAN AI**, 🧢 Vibecoding yöntemiyle [opencode](https://opencode.ai) kullanılarak geliştirilmiştir. OpenCode — açık kaynak ajanının gelişimine de destek olabilirsiniz:
-
-- ⭐ [GitHub'da opencode](https://github.com/anomalyco/opencode) repolarına yıldız verin
-- 💻 Yapay zeka ajanı geliştiricisiyseniz PR'larınızla katkı sağlayın
-- 🗣️ Topluluğa katılın (Discord) ve geri bildirim verin
-
-> Open source, birlikte geliştirilen yazılımın gücüdür. 💪
-
----
-
-<div align="center">
-
-**👨‍💻 İbrahim Anadol** · TakımÇizgisi Yazılım Geliştirme Grubu
-
-© 2026 İbrahim Anadol · Tüm hakları saklıdır.
-
-_Bu projeyi 🤖⭐ bir yıldızla destekleyebilirsiniz!_
-
-</div>
-
-<p align="center">
-  <img src="https://takimcizgisi.rf.gd/Assets/Image/MainLogo.png" alt="TakımÇizgisi" width="240">
-</p>
+**GPL-3.0** — bkz. [LICENSE](packages/vscode/LICENSE) (uzantı lisansı). Bu proje, TakımÇizgisi Yazılım Geliştirme Grubu tarafından geliştirilmiştir.

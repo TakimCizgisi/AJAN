@@ -1,0 +1,27 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "AJAN Uzantısını Başlat (packages/vscode)",
+            "type": "extensionHost",
+            "request": "launch",
+            "args": [
+                "--extensionDevelopmentPath=${workspaceFolder}/packages/vscode"
+            ],
+            "outFiles": [
+                "${workspaceFolder}/packages/vscode/out/**/*.js"
+            ],
+            "preLaunchTask": "ajan: build (vscode)"
+        }
+    ],
+    "tasks": [
+        {
+            "label": "ajan: build (vscode)",
+            "type": "npm",
+            "script": "run",
+            "command": "build:vscode",
+            "path": "${workspaceFolder}",
+            "problemMatcher": []
+        }
+    ]
+}

@@ -1,0 +1,13 @@
+node_modules/
+dist/
+out/
+packages/vscode/out/
+packages/vscode/*.vsix
+packages/ajan/dist/
+*.tgz
+*.log
+.DS_Store
+release/
+.ajan/
+*.tmp
+desktop.ini
