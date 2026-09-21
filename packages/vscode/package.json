@@ -1,0 +1,236 @@
+{
+    "name": "ajan",
+    "displayName": "AJAN",
+    "description": "Otonom yerel AI kodlama asistanı (AJAN AI). Yerel LLM tabanlı sohbet ve kodlama ajanı.",
+    "version": "0.4.0",
+    "publisher": "takimcizgisi",
+    "license": "GPL-3.0",
+    "type": "module",
+    "engines": {
+        "vscode": "^1.95.0"
+    },
+    "categories": [
+        "AI",
+        "Other"
+    ],
+    "icon": "media/assets/ajan.png",
+    "galleryBanner": {
+        "color": "#1a1a1a",
+        "theme": "dark"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/takimcizgisi/ajan.git"
+    },
+    "main": "./out/extension.js",
+    "contributes": {
+        "commands": [
+            {
+                "command": "ajan.chat",
+                "title": "AJAN: Sohbeti Aç",
+                "icon": "$(comment-discussion)",
+                "category": "AJAN"
+            },
+            {
+                "command": "ajan.newChat",
+                "title": "AJAN: Yeni Sohbet",
+                "icon": "$(add)",
+                "category": "AJAN"
+            },
+            {
+                "command": "ajan.stop",
+                "title": "AJAN: Üretimi Durdur",
+                "icon": "$(debug-stop)",
+                "category": "AJAN"
+            },
+            {
+                "command": "ajan.refreshModels",
+                "title": "AJAN: Model Listesini Yenile",
+                "icon": "$(refresh)",
+                "category": "AJAN"
+            },
+            {
+                "command": "ajan.openSettings",
+                "title": "AJAN: Ayarları Aç",
+                "icon": "$(settings-gear)",
+                "category": "AJAN"
+            },
+            {
+                "command": "ajan.openPlayground",
+                "title": "AJAN: Test Alanını Aç (.ajan)",
+                "icon": "$(beaker)",
+                "category": "AJAN"
+            }
+        ],
+        "menus": {
+            "view/title": [
+                {
+                    "command": "ajan.newChat",
+                    "when": "view == ajanView",
+                    "group": "navigation@1"
+                },
+                {
+                    "command": "ajan.stop",
+                    "when": "view == ajanView",
+                    "group": "navigation@2"
+                },
+                {
+                    "command": "ajan.refreshModels",
+                    "when": "view == ajanView",
+                    "group": "navigation@3"
+                },
+                {
+                    "command": "ajan.openSettings",
+                    "when": "view == ajanView",
+                    "group": "navigation@4"
+                },
+                {
+                    "command": "ajan.openPlayground",
+                    "when": "view == ajanView",
+                    "group": "navigation@5"
+                }
+            ],
+            "commandPalette": [
+                {
+                    "command": "ajan.chat"
+                },
+                {
+                    "command": "ajan.newChat"
+                },
+                {
+                    "command": "ajan.stop"
+                },
+                {
+                    "command": "ajan.refreshModels"
+                },
+                {
+                    "command": "ajan.openSettings"
+                },
+                {
+                    "command": "ajan.openPlayground"
+                }
+            ]
+        },
+        "viewsContainers": {
+            "activitybar": [
+                {
+                    "id": "ajan-activity",
+                    "title": "AJAN AI",
+                    "icon": "media/assets/ajan.png"
+                }
+            ]
+        },
+        "views": {
+            "ajan-activity": [
+                {
+                    "type": "webview",
+                    "id": "ajanView",
+                    "name": "AJAN AI",
+                    "icon": "media/assets/ajan.png"
+                }
+            ]
+        },
+        "configuration": {
+            "title": "AJAN AI",
+            "properties": {
+                "ajan.workspaceDir": {
+                    "type": "string",
+                    "default": "",
+                    "description": "AJAN çalışma dizini (boşsa aktif klasör / kullanıcı dizini)"
+                },
+                "ajan.modelId": {
+                    "type": "string",
+                    "default": "gemma-4-e2b-q4-k-m",
+                    "description": "Kullanılacak model kimliği (config/models.json içindeki id)"
+                },
+                "ajan.gpu": {
+                    "type": "string",
+                    "enum": [
+                        "auto",
+                        "metal",
+                        "cuda",
+                        "vulkan",
+                        "webgpu",
+                        "cuda-llama",
+                        "vulkan-llama"
+                    ],
+                    "default": "auto",
+                    "description": "GPU arka ucu"
+                },
+                "ajan.gpuLayers": {
+                    "type": "string",
+                    "enum": [
+                        "auto",
+                        "max"
+                    ],
+                    "default": "auto",
+                    "description": "GPU katman sayısı (sayı veya auto/max)"
+                },
+                "ajan.contextSize": {
+                    "type": "string",
+                    "default": "auto",
+                    "description": "Bağlam penceresi boyutu (auto veya token sayısı)"
+                },
+                "ajan.temperature": {
+                    "type": "number",
+                    "default": 0.6,
+                    "minimum": 0,
+                    "maximum": 2,
+                    "description": "Samimiyet (temperature)"
+                },
+                "ajan.maxTokens": {
+                    "type": "number",
+                    "default": 8192,
+                    "minimum": 256,
+                    "description": "Maks. üretilecek token"
+                },
+                "ajan.maxSteps": {
+                    "type": "number",
+                    "default": 25,
+                    "minimum": 1,
+                    "description": "Otonom görev başına maksimum araç adımı"
+                },
+                "ajan.toolTimeout": {
+                    "type": "number",
+                    "default": 60000,
+                    "minimum": 1000,
+                    "description": "Araç çalıştırma zaman aşımı (ms)"
+                },
+                "ajan.maxToolOutput": {
+                    "type": "number",
+                    "default": 40000,
+                    "minimum": 1000,
+                    "description": "Araçlardan dönen maks. çıktı uzunluğu (karakter)"
+                },
+                "ajan.beepOnComplete": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Görev tamamlanınca bip çal"
+                }
+            }
+        }
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run build",
+        "build": "node esbuild.mjs",
+        "watch": "node esbuild.mjs --watch",
+        "package": "vsce package --allow-missing-repository"
+    },
+    "dependencies": {
+        "node-llama-cpp": "3.21.1"
+    },
+    "devDependencies": {
+        "@takimcizgisi/core": "file:../core",
+        "@types/node": "^24.13.3",
+        "@types/vscode": "^1.95.0",
+        "@vscode/vsce": "^4.0.0",
+        "esbuild": "^0.24.2",
+        "typescript": "^5.7.3"
+    },
+    "allowScripts": {
+        "node-llama-cpp@3.21.1": true,
+        "esbuild@0.24.2": true,
+        "@vscode/vsce-sign@2.1.0": true,
+        "keytar@7.9.0": true
+    }
+}

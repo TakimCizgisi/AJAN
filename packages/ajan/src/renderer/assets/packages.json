@@ -1,0 +1,46 @@
+[
+    {
+        "id": "core",
+        "label": "AJAN Core (AI Motoru)",
+        "npmName": "@takimcizgisi/core",
+        "githubPath": "packages/core",
+        "logoUrl": "https://raw.githubusercontent.com/takimcizgisi/ajan/main/packages/ajan/src/renderer/assets/ajan.png",
+        "description": "Yerel AI motoru: otonom ajan döngüsü, LLM (node-llama-cpp), 20+ araç, model ve oturum yönetimi.",
+        "kind": "core",
+        "commands": [
+            {
+                "label": "AI motorunu yönetim dizinine kur",
+                "cmd": "npm install --prefix {{managedDir}} @takimcizgisi/core@latest --no-audit --no-fund"
+            },
+            {
+                "label": "Global npm bağlantısı kur",
+                "cmd": "npm install -g @takimcizgisi/core@latest --no-audit --no-fund"
+            }
+        ]
+    },
+    {
+        "id": "vscode",
+        "label": "AJAN VSCode Uzantısı",
+        "npmName": "@takimcizgisi/ajan-vscode",
+        "githubPath": "packages/vscode",
+        "logoUrl": "https://raw.githubusercontent.com/takimcizgisi/ajan/main/packages/ajan/src/renderer/assets/ajan.png",
+        "description": "VSCode entegrasyonu: ajan sohbeti, .ajan test alanı, araç yürütme ve model yönetimi.",
+        "kind": "vscode",
+        "commands": [
+            {
+                "label": "Uzantıyı VSCode'a kur (VSIX)",
+                "cmd": "pm:vscode"
+            }
+        ]
+    },
+    {
+        "id": "ajan",
+        "label": "AJAN (Masaüstü Paket Yöneticisi)",
+        "npmName": "@takimcizgisi/ajan",
+        "githubPath": "packages/ajan",
+        "logoUrl": null,
+        "description": "Bu uygulamanın kendisi — Electron ile çalışan ana AJAN arayüzü ve paket yöneticisi. Yeni sürümler GitHub'da Setup.exe olarak yayınlanır.",
+        "kind": "app",
+        "commands": []
+    }
+]

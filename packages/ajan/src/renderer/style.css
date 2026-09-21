@@ -1,0 +1,281 @@
+/* ─── AJAN Siber Paket Yöneticisi (ARAYÜZ) ─── */
+* { box-sizing: border-box; }
+
+html, body {
+    margin: 0;
+    height: 100%;
+    min-height: 100%;
+    background: #202020;
+    color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow-x: hidden;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 36px 20px 60px;
+    overflow-y: auto;
+}
+
+/* ─── EN ÜST ORTADAKİ LOGO ALANI ─── */
+.header-logo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.main-logo-img {
+    height: 72px;
+    width: auto;
+    object-fit: contain;
+    margin-bottom: 6px;
+    filter: drop-shadow(0 0 6px rgba(255, 117, 31, 0.35));
+    user-select: none;
+    pointer-events: none;
+}
+
+.main-logo {
+    font-size: 2.2rem;
+    font-weight: 800;
+    letter-spacing: 3px;
+    color: #ff751f;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    border-bottom: 2px solid #ff751f;
+    padding-bottom: 5px;
+}
+
+.main-subtitle {
+    font-size: 0.85rem;
+    color: #8e8e93;
+    letter-spacing: 1px;
+}
+
+/* ─── ANA KONTEYNER ─── */
+.container {
+    width: 100%;
+    max-width: 750px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.settings-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.group-title {
+    font-size: 11px;
+    text-transform: uppercase;
+    color: #8e8e93;
+    letter-spacing: 1px;
+}
+
+.group-source {
+    color: #ff751f;
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 10px;
+}
+
+.card {
+    background: #252525;
+    border: 1px solid #333;
+    padding: 14px;
+    border-radius: 12px;
+}
+
+/* ─── PAKET KARTLARI VE LOGOLARI ─── */
+.pkg-item {
+    background: #252525;
+    border: 1px solid #333;
+    padding: 16px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    border-radius: 12px;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.pkg-item:hover {
+    border-color: #ff751f;
+}
+
+.pkg-logo {
+    width: 48px;
+    height: 48px;
+    background: #1a1a1a;
+    border: 1px solid #444;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #ff751f;
+    flex-shrink: 0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.pkg-logo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: #1a1a1a;
+    padding: 4px;
+}
+
+.pkg-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.pkg-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.pkg-name {
+    font-weight: 600;
+    font-size: 15px;
+    color: #fff;
+}
+
+.pkg-version {
+    font-size: 11px;
+    color: #8e8e93;
+    font-family: ui-monospace, Consolas, monospace;
+}
+
+.pkg-version .arrow { color: #ff751f; }
+.pkg-version .new { color: #00e5ff; font-weight: 700; }
+
+.pkg-badges {
+    margin-left: auto;
+    display: flex;
+    gap: 6px;
+}
+
+.badge {
+    padding: 3px 8px;
+    font-size: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 6px;
+}
+
+.badge.installed {
+    background: rgba(76, 175, 80, 0.18);
+    color: #4caf50;
+    border: 1px solid #4caf50;
+}
+
+.badge.compat {
+    background: rgba(255, 117, 31, 0.15);
+    color: #ff751f;
+    border: 1px solid #ff751f;
+}
+
+.badge.update {
+    background: rgba(0, 229, 255, 0.15);
+    color: #00e5ff;
+    border: 1px solid #00e5ff;
+}
+
+.pkg-desc {
+    font-size: 12px;
+    color: #8e8e93;
+    margin-top: 6px;
+    line-height: 1.4;
+}
+
+.pkg-registry-error {
+    font-size: 11px;
+    color: #e0392e;
+    margin-top: 4px;
+}
+
+.pkg-actions {
+    margin-top: 12px;
+}
+
+/* ─── ARAMA ÇUBUĞU VE BUTONLAR ─── */
+input[type="text"] {
+    background: #1a1a1a;
+    border: 1px solid #444;
+    color: #fff;
+    padding: 10px 14px;
+    width: 100%;
+    outline: none;
+    font-size: 13px;
+    border-radius: 8px;
+    transition: border-color 0.2s;
+}
+
+input[type="text"]:focus {
+    border-color: #ff751f;
+}
+
+.btn {
+    background: #252525;
+    color: #f8f9fa;
+    border: 1px solid #444;
+    padding: 7px 16px;
+    cursor: pointer;
+    font-size: 12px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.btn:hover { background: #2e2e2e; }
+
+.btn:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+}
+
+.btn.primary {
+    background: #ff751f;
+    border-color: #ff751f;
+    color: #202020;
+    font-weight: 600;
+}
+
+.btn.primary:hover { background: #ff8533; }
+
+.empty-hint {
+    color: #8e8e93;
+    font-size: 13px;
+    text-align: center;
+}
+
+/* ─── TOAST BİLDİRİMİ ─── */
+.toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #252525;
+    border: 1px solid #ff751f;
+    padding: 12px 20px;
+    font-size: 13px;
+    display: none;
+    z-index: 2000;
+    color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    max-width: 80%;
+}
+
+.toast.show { display: block; }
+.toast.ok { border-color: #4caf50; }
+.toast.err { border-color: #e0392e; }

@@ -1,0 +1,227 @@
+License-Identifier: LicenseRef-TakimCizgisi-LSH-1.0
+
+▀█▀ ▄▀█ █▄▀ █ █▀▄▀█ █▀▀ █ ▀█ █▀▀ █ █▀ █
+░█░ █▀█ █░█ █ █░▀░█ █▄▄ █ █▄ █▄█ █ ▄█ █
+Limited Source Human License (LSH-1)
+
+Sürüm: 1.0
+Yayın Tarihi: 2026
+Lisans Türü: Kaynak Erişimli Topluluk Lisansı
+
+Hazırlayan:
+TakımÇizgisi Yazılım Geliştirme Grubu ve Topluluğu
+
+Telif Sahibi:
+TakımÇizgisi Yazılım Geliştirme Grubu ve Topluluğu
+
+
+======================================================================
+TELİF VE LİSANS BİLDİRİMİ
+======================================================================
+
+Copyright (c) 2026 TakımÇizgisi Yazılım Geliştirme Grubu ve Topluluğu
+
+Bu yazılım, kaynak kodları, belgeleri, yapılandırma dosyaları,
+görsel içerikleri, yardımcı araçları ve ilişkili tüm bileşenleri
+TakımÇizgisi LSH-1 Lisansı kapsamında korunmaktadır.
+
+Bu yazılımın kullanılması, kopyalanması, incelenmesi,
+değiştirilmesi veya dağıtılması yalnızca bu lisans şartlarının
+kabul edilmesi ve uygulanması koşuluyla mümkündür.
+
+Bu lisans kapsamında açıkça izin verilmeyen tüm haklar
+TakımÇizgisi Yazılım Geliştirme Grubu ve Topluluğu tarafından
+saklı tutulmaktadır.
+
+
+======================================================================
+TAKIMÇİZGİSİ HAKKINDA
+======================================================================
+
+TakımÇizgisi Yazılım Geliştirme Grubu ve Topluluğu;
+
+açık kaynak yazılım geliştirme, teknoloji üretimi,
+topluluk tabanlı yazılım geliştirme ve geliştirici
+iş birlikleri üzerine çalışan bağımsız bir teknoloji
+topluluğudur.
+
+TakımÇizgisi'nin amacı:
+
+- Açık kaynak projeler geliştirmek,
+- Yazılım bilgisini paylaşmak,
+- Geliştiricilerin birlikte üretmesini sağlamak,
+- Eğitim ve araştırmayı desteklemek,
+- Topluluk odaklı yazılım kültürünü geliştirmektir.
+
+Resmi Web:
+https://takimcizgisi.rf.gd/
+
+GitHub:
+https://github.com/TakimCizgisi
+
+
+======================================================================
+1. LİSANSIN AMACI
+======================================================================
+
+TakımÇizgisi Limited Source Human License (LSH-1), TakımÇizgisi
+tarafından geliştirilen yazılımların kaynak kod erişimini sağlamak,
+bireysel kullanım ve eğitim faaliyetlerini desteklemek,
+topluluk katkılarını teşvik etmek ve yazılım projelerinin
+izinsiz ticari kullanımını sınırlandırmak amacıyla hazırlanmıştır.
+
+LSH-1 aşağıdaki ilkeleri temel alır:
+
+- Kaynak kod şeffaflığı.
+- Bireysel kullanım özgürlüğü.
+- Eğitim ve araştırma desteği.
+- Topluluk geliştirmesi.
+- Geliştirici emeğinin korunması.
+- Ticari kullanım kontrolü.
+
+
+======================================================================
+2. LİSANS KULLANIM ALANI
+======================================================================
+
+LSH-1 yalnızca aşağıdaki projelerde kullanılabilir:
+
+- TakımÇizgisi tarafından geliştirilen projeler,
+- TakımÇizgisi üyeleri tarafından geliştirilen projeler,
+- TakımÇizgisi topluluğu içerisinde geliştirilen projeler,
+- TakımÇizgisi tarafından açıkça LSH-1 ile yayımlanan yazılımlar.
+
+LSH-1 lisansı, TakımÇizgisi'nin yazılı izni olmadan başka
+kişi veya kuruluşlar tarafından yeni projelerde kullanılamaz.
+
+Bu lisans:
+
+- başka bir lisans olarak yeniden yayımlanamaz,
+- adı değiştirilemez,
+- TakımÇizgisi dışında sahiplenilemez.
+
+
+======================================================================
+3. KULLANICI HAKLARI
+======================================================================
+
+Bu lisans şartlarını kabul eden kullanıcı:
+
+- Kaynak kodu inceleyebilir.
+- Yazılımı öğrenme amacıyla analiz edebilir.
+- Kişisel cihazlarında kullanabilir.
+- Kişisel projelerinde çalıştırabilir.
+- Hata düzeltmeleri ve geliştirmeler yapabilir.
+
+
+======================================================================
+4. TİCARİ KULLANIM SINIRLAMALARI
+======================================================================
+
+TakımÇizgisi'nin yazılı izni olmadan:
+
+- Yazılım satılamaz.
+- Ücretli paket olarak sunulamaz.
+- Ticari SaaS hizmetlerinde kullanılamaz.
+- Ücretli API hizmetlerine dahil edilemez.
+- Kapalı kaynak ticari ürünlere eklenemez.
+- Gelir sağlayan hizmetlerde kullanılamaz.
+
+
+======================================================================
+5. ATIF ZORUNLULUĞU
+======================================================================
+
+Dağıtılan yazılımlarda aşağıdaki ifade korunmalıdır:
+
+"Bu yazılım TakımÇizgisi Yazılım Geliştirme Grubu ve Topluluğu
+tarafından geliştirilmiş veya temel alınmıştır."
+
+Bu bildirim:
+
+- silinemez,
+- değiştirilemez,
+- gizlenemez.
+
+
+======================================================================
+6. MARKA VE TEMSİL
+======================================================================
+
+LSH-1 aşağıdaki hakları vermez:
+
+- TakımÇizgisi adını kullanma,
+- TakımÇizgisi logosunu kullanma,
+- Resmi temsilci olma,
+- Ortaklık açıklaması yapma.
+
+Kullanıcı kendisini TakımÇizgisi adına yetkili olarak
+gösteremez.
+
+
+======================================================================
+7. LİSANS İHLALİ
+======================================================================
+
+Aşağıdaki durumlar ihlal kabul edilir:
+
+- İzinsiz ticari kullanım.
+- Telif bilgilerinin kaldırılması.
+- Lisans dosyasının değiştirilmesi.
+- TakımÇizgisi kimliğinin gizlenmesi.
+- LSH-1'in izinsiz kullanılması.
+
+İhlal halinde verilen kullanım hakları sona erebilir.
+
+
+======================================================================
+8. GARANTİ REDDİ
+======================================================================
+
+Yazılım "OLDUĞU GİBİ" sunulmaktadır.
+
+TakımÇizgisi:
+
+- hatasız çalışma,
+- kesintisiz hizmet,
+- donanım uyumluluğu,
+- güvenlik garantisi
+
+vermez.
+
+
+======================================================================
+9. SON HÜKÜM
+======================================================================
+
+Yazılımı kullanan kişi:
+
+- lisansı okuduğunu,
+- şartlarını anladığını,
+- kullanım koşullarını kabul ettiğini
+
+beyan eder.
+
+
+======================================================================
+TAKIMÇİZGİSİ LSH-1
+
+Limited Source Human License
+
+Version 1.0 - 2026
+
+Hazırlayan:
+TakımÇizgisi Yazılım Geliştirme Grubu ve Topluluğu
+
+Copyright (c) 2026
+
+License Identifier:
+LicenseRef-TakimCizgisi-LSH-1.0
+
+Resmi Kaynak:
+https://takimcizgisi.rf.gd/
+
+GitHub:
+https://github.com/TakimCizgisi
+
+======================================================================

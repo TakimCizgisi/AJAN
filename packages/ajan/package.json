@@ -1,0 +1,53 @@
+{
+    "name": "@takimcizgisi/ajan",
+    "version": "0.4.0",
+    "description": "AJAN AI masaüstü arayüzü (Electron) — ana AJAN. Paket yöneticisi olarak @takimcizgisi/core ve @takimcizgisi/ajan-vscode'u kurar/yönetir.",
+    "type": "module",
+    "license": "GPL-3.0",
+    "author": "TakimCizgisi Yazilim Gelistirme Grubu",
+    "main": "./dist/main/index.js",
+    "scripts": {
+        "build": "tsc -p tsconfig.json && node scripts/preload-rename.mjs",
+        "dev": "npm run build && electron .",
+        "start": "tsc -p tsconfig.json && electron .",
+        "dist": "npm run build && electron-builder"
+    },
+    "engines": {
+        "node": ">=26.4.0"
+    },
+    "dependencies": {
+        "@takimcizgisi/core": "file:../core"
+    },
+    "devDependencies": {
+        "@types/node": "^24.13.3",
+        "electron": "33.4.11",
+        "electron-builder": "^25.1.8",
+        "typescript": "^7.0.2"
+    },
+    "build": {
+        "appId": "tr.takimcizgisi.ajan",
+        "productName": "AJAN AI",
+            "electronVersion": "33.4.11",
+            "npmRebuild": false,
+            "asar": false,
+            "directories": {
+                "output": "${env.AJAN_EB_OUTPUT}"
+            },
+            "files": [
+            "dist/**/*",
+            "src/renderer/**/*",
+            "package.json"
+        ],
+        "win": {
+            "signAndEditExecutable": false,
+            "target": [
+                "nsis",
+                "portable"
+            ]
+        },
+        "nsis": {
+            "oneClick": false,
+            "allowToChangeInstallationDirectory": true
+        }
+    }
+}
