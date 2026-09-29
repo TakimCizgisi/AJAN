@@ -3,7 +3,7 @@
     "displayName": "AJAN",
     "description": "Otonom yerel AI kodlama asistanı (AJAN AI) — Amber Apricot",
     "version": "0.5.0",
-    "license": "GPL-3.0",
+    "license": "LicenseRef-TakimCizgisi-LSH-1.0",
     "type": "module",
     "author": "TakımÇizgisi LSH Yazılım Geliştirme Grubu Ve Topluluğu",
     "keywords": [

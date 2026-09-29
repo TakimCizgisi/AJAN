@@ -317,4 +317,8 @@ Model yükleme ve VRAM taşıma süresidir; `load-progress` olaylarıyla ilerlem
 
 ## Lisans
 
-GPL-3.0. Ayrıntılar için [LICENSE](LICENSE).
+**Limited Source Human License (LSH-1)** — Sürüm 1.0
+SPDX tanımlayıcısı: `LicenseRef-TakimCizgisi-LSH-1.0`
+
+Telif sahibi: TakımÇizgisi Yazılım Geliştirme Grubu ve Topluluğu (2026).
+Ayrıntılar için [LICENSE](LICENSE).
