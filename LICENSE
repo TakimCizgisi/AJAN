@@ -1,227 +1,324 @@
-License-Identifier: LicenseRef-TakimCizgisi-LSH-1.0
+# AJAN AI
 
-▀█▀ ▄▀█ █▄▀ █ █▀▄▀█ █▀▀ █ ▀█ █▀▀ █ █▀ █
-░█░ █▀█ █░█ █ █░▀░█ █▄▄ █ █▄ █▄█ █ ▄█ █
-Limited Source Human License (LSH-1)
+> **Otonom, yerel AI kodlama ajanı** — TakımÇizgisi LSH Yazılım Geliştirme Grubu ve Topluluğu
+>
+> Sürüm 0.5.0 — **Amber Apricot**
 
-Sürüm: 1.0
-Yayın Tarihi: 2026
-Lisans Türü: Kaynak Erişimli Topluluk Lisansı
+AJAN, görevleri bağımsız olarak **planlayan**, **kod yazan**, **test eden** ve **sonuçları doğrulayan** bir yapay zekâ ajanıdır. Tamamen yerel çalışır: model bilgisayarınızda koşar, dosyalar cihazınızdan çıkmaz.
 
-Hazırlayan:
-TakımÇizgisi Yazılım Geliştirme Grubu ve Topluluğu
+AJAN bir **motordur** (daemon). Arayüz, panel veya eklenti yoktur. Motor bir IPC kanalı üzerinden dinler; onunla konuşan istemci ne olursa olsun sonucu kendi yüzeyinde gösterir. Yapay zekâ motoru **node-llama-cpp**'dir ve hedefi **CUDA**'dır.
 
-Telif Sahibi:
-TakımÇizgisi Yazılım Geliştirme Grubu ve Topluluğu
+> **Neden yerel?** Bulut ajanlarının aksine AJAN hiçbir koda, yapılandırmaya veya sohbete dışarıdan erişim vermez. Model indirilir ve tüm işlemler tamamen offline yürütülür.
 
+---
 
-======================================================================
-TELİF VE LİSANS BİLDİRİMİ
-======================================================================
+## İçindekiler
 
-Copyright (c) 2026 TakımÇizgisi Yazılım Geliştirme Grubu ve Topluluğu
+- [Mimari](#mimari)
+- [Kurulum](#kurulum)
+- [Motoru çalıştırma](#motoru-çalıştırma)
+- [İstemci kullanımı](#istemci-kullanımı)
+- [IPC protokolü](#ipc-protokolü)
+- [Özellikler](#özellikler)
+- [Araçlar](#araçlar)
+- [Modeller](#modeller)
+- [GPU](#gpu)
+- [Yapılandırma](#yapılandırma)
+- [Veri dizini](#veri-dizini)
+- [Geliştirme](#geliştirme)
+- [Sorun giderme](#sorun-giderme)
+- [Lisans](#lisans)
 
-Bu yazılım, kaynak kodları, belgeleri, yapılandırma dosyaları,
-görsel içerikleri, yardımcı araçları ve ilişkili tüm bileşenleri
-TakımÇizgisi LSH-1 Lisansı kapsamında korunmaktadır.
+---
 
-Bu yazılımın kullanılması, kopyalanması, incelenmesi,
-değiştirilmesi veya dağıtılması yalnızca bu lisans şartlarının
-kabul edilmesi ve uygulanması koşuluyla mümkündür.
+## Mimari
 
-Bu lisans kapsamında açıkça izin verilmeyen tüm haklar
-TakımÇizgisi Yazılım Geliştirme Grubu ve Topluluğu tarafından
-saklı tutulmaktadır.
+```
+        ┌──────────────┐        ┌──────────────────────────────┐
+        │  istemci uyg │ ─IPC─▶ │  ajan-engine (daemon)        │
+        │  (herhangi)  │ ◀───── │  ├─ AjanService  (tek örnek) │
+        └──────────────┘  olay  │  ├─ AjanAgent   (tek model)   │
+                              │  └─ LlamaEngine  (CUDA)     │
+                              └──────────────────────────────┘
+```
 
+- **Tek motor süreci.** Model belleği paylaşılan bir kaynaktır; her istemci aynı modeli kullanır, her sohbet motoru yeniden başlatmaz.
+- **Tek çalışma kuyruğu.** Modele dokunan işlemler (sohbet, model kurma, config değişimi) sırayla yürütülür. Durum okuyan istekler kuyruğu atlar.
+- **Olay akışı.** Sohbet çıktısı yalnızca soran istemciye gider; iki istemci birbirinin metnini görmez. Model yükleme ilerlemesi herkese açıktır.
 
-======================================================================
-TAKIMÇİZGİSİ HAKKINDA
-======================================================================
+## Kurulum
 
-TakımÇizgisi Yazılım Geliştirme Grubu ve Topluluğu;
+```bash
+npm install -g @takimcizgisi/ajan
+```
 
-açık kaynak yazılım geliştirme, teknoloji üretimi,
-topluluk tabanlı yazılım geliştirme ve geliştirici
-iş birlikleri üzerine çalışan bağımsız bir teknoloji
-topluluğudur.
+Bu, `ajan-engine` motorunu kurar. Motor **yalnızca CUDA ve Vulkan** kullanır ve ikisini sırayla dener: önce CUDA, olmazsa Vulkan. İkisi de kullanılamıyorsa motor hata fırlatır — sessizce CPU'ya düşmez. Kurulumdan sonra hangisinin çalıştığını doğrulamak için:
 
-TakımÇizgisi'nin amacı:
+```bash
+npm run check:gpu
+```
 
-- Açık kaynak projeler geliştirmek,
-- Yazılım bilgisini paylaşmak,
-- Geliştiricilerin birlikte üretmesini sağlamak,
-- Eğitim ve araştırmayı desteklemek,
-- Topluluk odaklı yazılım kültürünü geliştirmektir.
+Motor tek dosya olarak paketlenir (`out/ajan-engine.js`). İstemci olarak `AjanEngine` sınıfını içe aktarırsınız:
 
-Resmi Web:
-https://takimcizgisi.rf.gd/
+```ts
+import { AjanEngine } from "@takimcizgisi/ajan/client";
+```
 
-GitHub:
-https://github.com/TakimCizgisi
+## Motoru çalıştırma
 
+```bash
+npx ajan-engine
+```
 
-======================================================================
-1. LİSANSIN AMACI
-======================================================================
+Seçenekler:
 
-TakımÇizgisi Limited Source Human License (LSH-1), TakımÇizgisi
-tarafından geliştirilen yazılımların kaynak kod erişimini sağlamak,
-bireysel kullanım ve eğitim faaliyetlerini desteklemek,
-topluluk katkılarını teşvik etmek ve yazılım projelerinin
-izinsiz ticari kullanımını sınırlandırmak amacıyla hazırlanmıştır.
+| Seçenek | Açıklama |
+|---|---|
+| `-C, --cwd <yol>` | Ajanın çalışma dizini (varsayılan: bulunulan dizin) |
+| `--socket <yol>` | Dinlenecek socket (varsayılan: `\\.\pipe\ajan-engine`, POSIX'te `$XDG_RUNTIME_DIR/ajan-engine.sock`) |
+| `--log-level <seviye>` | `debug` \| `info` \| `warn` \| `error` |
+| `-h, --help` | Yardım |
 
-LSH-1 aşağıdaki ilkeleri temel alır:
+Motor başladığında tek satır yazar ve dinlemeye başlar:
 
-- Kaynak kod şeffaflığı.
-- Bireysel kullanım özgürlüğü.
-- Eğitim ve araştırma desteği.
-- Topluluk geliştirmesi.
-- Geliştirici emeğinin korunması.
-- Ticari kullanım kontrolü.
+```
+AJAN motoru hazır  ajan=0.5.0  socket=\\.\pipe\ajan-engine  cwd=D:\proje
+```
 
+`Ctrl+C` motoru düzgünce kapatır. Uzun süre arka planda çalışacaksa `detached` olarak başlatıp logları `getLogDir()` altına yazdırın.
 
-======================================================================
-2. LİSANS KULLANIM ALANI
-======================================================================
+## İstemci kullanımı
 
-LSH-1 yalnızca aşağıdaki projelerde kullanılabilir:
+```ts
+import { AjanEngine } from "@takimcizgisi/ajan/client";
 
-- TakımÇizgisi tarafından geliştirilen projeler,
-- TakımÇizgisi üyeleri tarafından geliştirilen projeler,
-- TakımÇizgisi topluluğu içerisinde geliştirilen projeler,
-- TakımÇizgisi tarafından açıkça LSH-1 ile yayımlanan yazılımlar.
+const engine = await AjanEngine.connect();          // özel yol: connect("\\.\pipe\ajan-engine")
 
-LSH-1 lisansı, TakımÇizgisi'nin yazılı izni olmadan başka
-kişi veya kuruluşlar tarafından yeni projelerde kullanılamaz.
+// Tek seferlik soru — yanıt akış halinde gelir
+const cevap = await engine.ask("bu klasördeki tüm testleri çalıştır", {
+    onText: (t) => process.stdout.write(t),
+    onThinking: (t) => process.stderr.write(t),
+    onToolCall: (name, args) => console.log("→", name, args),
+    onToolResult: (name, ok) => console.log(ok ? "✔" : "✖", name)
+});
 
-Bu lisans:
+// Durum
+const s = await engine.status();
+console.log(s.modelName, s.gpu.active, `${s.gpu.layers} katman`, `${s.gpu.vramMb} MB`);
+```
 
-- başka bir lisans olarak yeniden yayımlanamaz,
-- adı değiştirilemez,
-- TakımÇizgisi dışında sahiplenilemez.
+Öne çıkan metotlar:
 
+| Metot | Açıklama |
+|---|---|
+| `ping()` | Motor sürümü ve protokol uyumu (`PROTOCOL_VERSION`) |
+| `status()` | Model, GPU, bağlam, istemci sayısı, uptime |
+| `getGpu()` | Yalnız GPU raporu |
+| `ask(text, opts)` | Sohbet; akış + araç olayları, döner: tam yanıt |
+| `abort()`` | Devam eden görevi iptal et |
+| `newChat()` | Konuşma geçmişini temizle (model yüklü kalır) |
+| `listModels()` / `installModel(id)` / `removeModel(id)` / `useModel(id)` | Model yönetimi |
+| `refreshModels()` | Kataloğu uzak kaynaktan yenile |
+| `getHistory()` / `listSessions()` / `loadSession(id)` / `saveSession(s)` / `deleteSession(id)` | Oturum yönetimi |
+| `shutdown()` | Motoru kapat |
 
-======================================================================
-3. KULLANICI HAKLARI
-======================================================================
+Olaylara abone olmak için `engine.on(...)` ve `engine.onClose(...)` kullanılabilir.
 
-Bu lisans şartlarını kabul eden kullanıcı:
+Motor çalışmıyorsa `AjanEngine.connect` anlaşılır bir hata verir (`socket yok` / `yanıt vermiyor`); `start` komutuyla başlatın.
 
-- Kaynak kodu inceleyebilir.
-- Yazılımı öğrenme amacıyla analiz edebilir.
-- Kişisel cihazlarında kullanabilir.
-- Kişisel projelerinde çalıştırabilir.
-- Hata düzeltmeleri ve geliştirmeler yapabilir.
+## IPC protokolü
 
+- Taşıma: Windows'ta **named pipe** (`\\.\pipe\ajan-engine`), POSIX'te **Unix domain socket**.
+- Çerçeveleme: **newline-delimited JSON** — her mesaj tek satır. Uzun yazılar (diff, patch) satır sınırlarından bağımsız birleştirilir.
+- Sürüm: `PROTOCOL_VERSION` (şu an `1`). Uyumsuzlukta `AjanEngine.assertCompatible()` hata verir; motoru yeniden başlatın.
 
-======================================================================
-4. TİCARİ KULLANIM SINIRLAMALARI
-======================================================================
+Bir istek `{ id, req }`, bir yanıt `{ id, ok, result }` veya `{ id, ok:false, error }` şeklindedir. Olaylar `{ event, ... }` taşır ve `id` içermez.
 
-TakımÇizgisi'nin yazılı izni olmadan:
+İstekler: `ping`, `status`, `set-config`, `list-models`, `install-model`, `remove-model`, `use-model`, `refresh-models`, `chat`, `abort`, `new-chat`, `get-history`, `list-sessions`, `load-session`, `save-session`, `delete-session`, `shutdown`.
 
-- Yazılım satılamaz.
-- Ücretli paket olarak sunulamaz.
-- Ticari SaaS hizmetlerinde kullanılamaz.
-- Ücretli API hizmetlerine dahil edilemez.
-- Kapalı kaynak ticari ürünlere eklenemez.
-- Gelir sağlayan hizmetlerde kullanılamaz.
+Olaylar: `text-chunk`, `thinking-chunk`, `tool-call`, `tool-result`, `step-start`, `step-end`, `load-progress`, `load-complete`, `error`, `complete`.
 
+## Özellikler
 
-======================================================================
-5. ATIF ZORUNLULUĞU
-======================================================================
+- **Otonom görev döngüsü.** Model araç çağrısı yapar, sonuçları okur, adımları kendi ilerletir; `task_complete` ile turu kapatır.
+- **Gerçek akıl yürütme akışı.** Gemma modellerinde `reasoning: true` ile düşünme segmentleri `thinking-chunk` olarak yayınlanır; Qwen'de `thoughts` modu `reasoning` ayarına göre `discourage`/`auto` seçilir.
+- **Araçlar.** Dosya sistemi, kabuk, arama, veri okuma, diff/patch uygulama, `fetch_url`, oyun alanı (playground) ve oturum araçları.
+- **Patch desteği.** Birleşik diff ayrıştırılır ve dosyaya güvenli biçimde uygulanır.
+- **Güvenlik sınırları.** `cwd` dışına yazma engellenir; silme işlemleri izlenebilir loglanır.
+- **Oturumlar.** Sohbet geçmişi diske yazılır, listelenir, geri yüklenir.
+- **Model kataloğu.** Uzak kaynaktan (`config/models.json` gösterge dosyasından) yenilenebilir.
 
-Dağıtılan yazılımlarda aşağıdaki ifade korunmalıdır:
+## Araçlar
 
-"Bu yazılım TakımÇizgisi Yazılım Geliştirme Grubu ve Topluluğu
-tarafından geliştirilmiş veya temel alınmıştır."
+| Araç | İşlev |
+|---|---|
+| `read_file`, `write_file`, `edit_file`, `delete_file` | Dosya okuma/yazma/düzenleme/silme |
+| `list_files`, `search_files`, `read_data` | Dizin tarama, içerik arama, JSON/YAML okuma |
+| `run_command` | Kabuk komutu |
+| `apply_patch` | Birleşik diff uygulama |
+| `unzip_file` | Arşiv açma |
+| `fetch_url` | URL içeriği çekme |
+| `open_playground`, `task_complete` | Etkileşimli oyun alanı ve tur kapanışı |
 
-Bu bildirim:
+## Modeller
 
-- silinemez,
-- değiştirilemez,
-- gizlenemez.
+Katalog `config/models.json` içinde tanımlıdır; her model `contextSize: "auto"` ve `gpuLayers: "auto"` taşır, yani motor config'deki değerleri kullanır.
 
+| id | Ad | Not |
+|---|---|---|
+| `gemma-4-e2b-q4-k-m` | Gemma 4 E2B (Q4_K_M) | Varsayılan, düşünme açık |
+| `gemma-4-e2b-q8` | Gemma 4 E2B (Q8_0) | Daha yüksek kalite, daha çok RAM |
+| `gemma-3-4b-it-q4-k-m` | Gemma 3 4B Instruct (Q4_K_M) | Alternatif |
+| `qwen-3-4b-instruct-q4-k-m` | Qwen3 4B Instruct (Q4_K_M) | Güçlü tool calling |
 
-======================================================================
-6. MARKA VE TEMSİL
-======================================================================
+Model kurma:
 
-LSH-1 aşağıdaki hakları vermez:
+```ts
+await engine.installModel("gemma-4-e2b-q4-k-m");
+```
 
-- TakımÇizgisi adını kullanma,
-- TakımÇizgisi logosunu kullanma,
-- Resmi temsilci olma,
-- Ortaklık açıklaması yapma.
+Kurulum `getModelsDir()` altına indirir ve ilerleme `load-progress` olayıyla bildirilir. Kurulu model `active` olarak işaretlenmeden sohbet başlatmak "Model tanımlı değil" hatası verir.
 
-Kullanıcı kendisini TakımÇizgisi adına yetkili olarak
-gösteremez.
+## GPU
 
+Motor **yalnızca CUDA ve Vulkan** kullanır. Bu ikisi dışında bir arka uç yoktur (Metal, WebGPU ve saf CPU seçeneği kaldırılmıştır).
 
-======================================================================
-7. LİSANS İHLALİ
-======================================================================
+### Arka uç zinciri
 
-Aşağıdaki durumlar ihlal kabul edilir:
+Motor sırayla dener ve **ilk çalışanı** kullanır:
 
-- İzinsiz ticari kullanım.
-- Telif bilgilerinin kaldırılması.
-- Lisans dosyasının değiştirilmesi.
-- TakımÇizgisi kimliğinin gizlenmesi.
-- LSH-1'in izinsiz kullanılması.
+| `config.gpu` | Denenen sıra |
+|---|---|
+| `auto` (varsayılan) | `auto` → node-llama-cpp kendi çözümlemesi (önce CUDA, olmazsa Vulkan) |
+| `cuda` | `cuda` → `vulkan` → `auto` |
+| `vulkan` | `vulkan` → `auto` |
 
-İhlal halinde verilen kullanım hakları sona erebilir.
+- Her başarısız deneme gerekçesiyle loglanır.
+- Zincirin tamamı tutarsa **hata fırlatılır**; motor sessizce CPU'ya düşmez. Sessiz yavaşlama, ilk sürümdeki en büyük sorundu.
+- `gpuLayers` varsayılanı `max` — tüm katmanlar GPU'ya gider.
 
+```bash
+npm run check:gpu
+```
 
-======================================================================
-8. GARANTİ REDDİ
-======================================================================
+Bu komut `config.gpu`'yu gösterir, sürücü desteğini listeler ve CUDA ile Vulkan'ı **gerçekten yükleyerek** hangisinin çalıştığını raporlar. Model yüklenmeden katman aktarımı açılıp açılmadığı görülür.
 
-Yazılım "OLDUĞU GİBİ" sunulmaktadır.
+### Raporlanan alanlar
 
-TakımÇizgisi:
+| Alan | Anlam |
+|---|---|
+| `gpu.active` | Gerçekte yüklenen arka uç (`cuda` \| `vulkan`) veya `"yüklenmedi"` |
+| `gpu.offload` | Katman aktarımı açık mı |
+| `gpu.layers` | GPU'ya yüklenen katman sayısı (0 = henüz yüklenmedi) |
+| `gpu.vramMb` | Kullanılabilen GPU belleği |
+| `gpu.supported` | Bu makinede sürücüsü bulunan arka uçlar |
+| `gpu.preferred` | `config.gpu` değeri |
+| `gpu.fallback` | İstenen arka uç kullanılamayıp diğerine düşüldü mü |
 
-- hatasız çalışma,
-- kesintisiz hizmet,
-- donanım uyumluluğu,
-- güvenlik garantisi
+> **Önemli ayrım:** "makine CUDA'yı destekliyor" ile "motor CUDA'da çalışıyor" aynı şey değildir. `nvidia-smi` CUDA sürücüsünü gösterebilir ama node-llama-cpp'nin prebuilt CUDA ikilisi uyumsuz olabilir; bu durumda `getLlama({gpu:"cuda"})` hata fırlatır ve motor bir sonraki adaya geçer. `gpu.active` yalnızca `Llama.gpu`'dan okunur, `supported` listesinden değil.
 
-vermez.
+### Bu makinedeki durum (RTX 5070 Laptop)
 
+```
+sürücü destekli   : vulkan
+uyumlu olabilir   : cuda, vulkan
 
-======================================================================
-9. SON HÜKÜM
-======================================================================
+cuda     -> KULLANILAMIYOR (No prebuilt binaries found)
+vulkan   -> vulkan   katman aktarimi: acik
+```
 
-Yazılımı kullanan kişi:
+CUDA sürücüsü kurulu (`nvidia-smi` CUDA 13.4 gösteriyor) ancak node-llama-cpp 3.21.1'in prebuilt CUDA ikilisi bu sistemde `testBindingBinary` aşamasında eleniyor. İki olası sebep: RTX 5070'in Blackwell mimarisi (sm_120) sürümdeki CUDA ikilisinde bulunmuyor ya da sistemde çakışan bir CUDA kurulumu var. Motor bu yüzden **Vulkan** ile çalışır — aynı GPU, aynı VRAM, aynı katman aktarımı; yalnızca CUDA'ya göre biraz daha yavaş.
 
-- lisansı okuduğunu,
-- şartlarını anladığını,
-- kullanım koşullarını kabul ettiğini
+CUDA'nın açılması için node-llama-cpp'nin bu kartı kapsayan bir sürümüne yükseltilmesi gerekir. Bunu doğrulamak için:
 
-beyan eder.
+```bash
+npm run check:gpu
+```
 
+## Yapılandırma
 
-======================================================================
-TAKIMÇİZGİSİ LSH-1
+`getConfigPath()` altındaki `config.json`:
 
-Limited Source Human License
+```jsonc
+{
+    "modelId": "gemma-4-e2b-q4-k-m",
+    "contextSize": 8192,      // 128K yerine; KV cache belleği tüketip ilk tokeni geciktiriyor
+    "gpuLayers": "max",       // "max" = tüm katmanlar; sayı = o kadar katman
+    "gpu": "auto",            // auto | cuda | vulkan
+    "session": { "temperature": 0.6, "topK": 64, "topP": 0.9, "maxTokens": 2048 }
+}
+```
 
-Version 1.0 - 2026
+`gpu` yalnız `auto`, `cuda` veya `vulkan` olabilir. Ayrıntı için [GPU](#gpu) bölümü.
 
-Hazırlayan:
-TakımÇizgisi Yazılım Geliştirme Grubu ve Topluluğu
+Çalışma zamanında değiştirmek için `set-config` isteği gönderilir (`patch` nesnesi mevcut config ile birleştirilir). `modelOverrides` ile model bazında `temperature`, `maxTokens` gibi değerler geçilebilir.
 
-Copyright (c) 2026
+## Veri dizini
 
-License Identifier:
-LicenseRef-TakimCizgisi-LSH-1.0
+`getDataDir()` (varsayılan `~/.ajan`):
 
-Resmi Kaynak:
-https://takimcizgisi.rf.gd/
+| Yol | İçerik |
+|---|---|
+| `models/` | İndirilen GGUF dosyaları |
+| `config.json` | Ayarlar |
+| `sessions/` | Kayıtlı oturumlar |
+| `logs/` | `engine.log`, `engine.err.log` |
 
-GitHub:
-https://github.com/TakimCizgisi
+## Geliştirme
 
-======================================================================
+```bash
+npm install
+npm run typecheck     # tsc --noEmit
+npm run build         # out/ajan-engine.js
+npm run watch         # yeniden derleme
+npm run clean
+npm run test:tools    # araç testleri
+npm run test:new      # yeni araç testleri
+npm run test:ipc      # IPC uçtan uca testi
+npm run check:gpu     # CUDA/Vulkan yükleme denemesi
+npm run daemon        # derlenmiş motoru çalıştır
+```
+
+Kaynak düzeni:
+
+| Yol | İşlev |
+|---|---|
+| `src/daemon/` | Motor: `main`, `server`, `runner`, `gpu` |
+| `src/protocol/` | Sözleşme ve kanal (`messages.ts`, `channel.ts`) |
+| `src/client/` | `AjanEngine` istemcisi |
+| `src/service.ts` | UI'dan bağımsız servis katmanı |
+| `src/core/agent.ts` | Ajan döngüsü, araç kullanımı, olaylar |
+| `src/engine/` | `LlamaEngine` ve model yöneticisi |
+| `src/tools/` | Araç kayıt defteri ve uygulamaları |
+| `src/config/` | Config yöneticisi ve tipler |
+
+## Sorun giderme
+
+**"AJAN motoru çalışmıyor (socket yok)"**
+Motor ayakta değil. `npx ajan-engine` ile başlatın.
+
+**EADDRINUSE / "motor zaten çalışıyor"**
+Önceki motor süreci hâlâ dinliyor. `shutdown` isteği gönderin veya süreci sonlandırıp tekrar başlatın.
+
+**`gpu.preferred = "cuda"` ama `gpu.active = "cpu"`**
+Sürücü yok ya da CUDA native paketi kurulu değil. Sürücüyü kurup paketin doğru platform ikilisini içerdiğini doğrulayın.
+
+**"Model tanımlı değil: <id>"**
+Model kurulmamış. `installModel(id)` çağırın veya `listModels()` ile katalogdaki id'yi kontrol edin.
+
+**Bağlantı açılıp kapanıyor (POSIX)**
+Sahipsiz socket dosyası kalmış olabilir. Motor başlarken temizler; çalışan başka motor varsa dokunmaz.
+
+**Protokol uyuşmazlığı**
+`ajan` ve motor farklı sürümde. Motoru yeniden başlatın.
+
+**Uzun süren ilk yanıt**
+Model yükleme ve VRAM taşıma süresidir; `load-progress` olaylarıyla ilerleme raporlanır. `contextSize` çok büyükse bellek baskısı token üretimini yavaşlatır.
+
+## Lisans
+
+**Limited Source Human License (LSH-1)** — Sürüm 1.0
+SPDX tanımlayıcısı: `LicenseRef-TakimCizgisi-LSH-1.0`
+
+Telif sahibi: TakımÇizgisi Yazılım Geliştirme Grubu ve Topluluğu (2026).
+Ayrıntılar için [LICENSE](LICENSE).
