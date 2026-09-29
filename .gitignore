@@ -1,0 +1,10 @@
+node_modules/
+out/
+dist/
+release/
+*.tgz
+*.log
+.DS_Store
+.ajan/
+*.tmp
+desktop.ini

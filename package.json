@@ -1,0 +1,87 @@
+{
+    "name": "@takimcizgisi/ajan",
+    "displayName": "AJAN",
+    "description": "Otonom yerel AI kodlama asistanı (AJAN AI) — Amber Apricot",
+    "version": "0.5.0",
+    "license": "GPL-3.0",
+    "type": "module",
+    "author": "TakımÇizgisi LSH Yazılım Geliştirme Grubu Ve Topluluğu",
+    "keywords": [
+        "ai",
+        "llm",
+        "local",
+        "agent",
+        "coding-agent",
+        "llama-cpp",
+        "gemma",
+        "qwen",
+        "cuda",
+        "vulkan",
+        "ipc"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/takimcizgisi/ajan.git"
+    },
+    "homepage": "https://github.com/takimcizgisi/ajan",
+    "bugs": {
+        "url": "https://github.com/takimcizgisi/ajan/issues"
+    },
+    "bin": {
+        "ajan-engine": "./out/ajan-engine.js"
+    },
+    "main": "./out/ajan-engine.js",
+    "exports": {
+        ".": {
+            "types": "./src/index.ts",
+            "import": "./src/index.ts"
+        },
+        "./client": {
+            "types": "./src/client/client.ts",
+            "import": "./src/client/client.ts"
+        },
+        "./protocol": {
+            "types": "./src/protocol/messages.ts",
+            "import": "./src/protocol/messages.ts"
+        }
+    },
+    "engines": {
+        "node": ">=26.4.0"
+    },
+    "scripts": {
+        "typecheck": "tsc --noEmit -p tsconfig.json",
+        "build": "node esbuild.mjs",
+        "watch": "node esbuild.mjs --watch",
+        "clean": "node scripts/clean.mjs",
+        "release": "node scripts/release.mjs",
+        "test:tools": "tsx scripts/smoke-tools.ts",
+        "test:new": "tsx scripts/smoke-new-tools.ts",
+        "test:ipc": "tsx scripts/smoke-ipc.ts",
+        "check:gpu": "tsx scripts/check-gpu.ts",
+        "daemon": "node out/ajan-engine.js"
+    },
+    "files": [
+        "out/ajan-engine.js",
+        "src",
+        "config/models.json",
+        "README.md",
+        "LICENSE"
+    ],
+    "dependencies": {
+        "node-llama-cpp": "3.21.1"
+    },
+    "devDependencies": {
+        "@types/adm-zip": "^0.5.8",
+        "@types/js-yaml": "^4.0.9",
+        "@types/node": "^24.13.3",
+        "adm-zip": "^0.6.1",
+        "esbuild": "^0.28.2",
+        "js-yaml": "^5.3.0",
+        "tsx": "^4.23.12",
+        "typescript": "^5.7.3"
+    },
+    "allowScripts": {
+        "node-llama-cpp@3.21.1": true,
+        "esbuild@0.28.2": true
+    }
+}
